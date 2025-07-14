@@ -1,5 +1,6 @@
 from src.masks import get_mask_card_number, get_mask_account
 
+
 def mask_account_card(confidential_info: tuple) -> str:
     """Функция, которая обрабатывает информацию о картах и о счетах"""
     to_mask_info = []
@@ -21,3 +22,22 @@ def mask_account_card(confidential_info: tuple) -> str:
     for i in range(len(result)):
         result_str.append(f"{info_name[i]} {result[i]}")
     return "\n".join(result_str)
+
+
+def get_date(operation_data: str) -> str:
+    """"Принимает на вход строку с датой в формате
+    '2024-03-11T02:26:18.671407'
+    и возвращает строку с датой в формате 'ДД.ММ.ГГГГ'"""
+    to_change_format = operation_data.split('T' or 'Т')
+    for data in to_change_format:
+        day = ''
+        month = ''
+        year = ''
+        if '-' in data:
+            separated_data = data.split('-')
+            day += separated_data[2]
+            month += separated_data[1]
+            year += separated_data[0]
+        return f"{day}.{month}.{year}"
+
+print(get_date('2024-03-11T02:26:18.671407'))
