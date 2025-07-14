@@ -39,5 +39,3 @@ def get_date(operation_data: str) -> str:
             month += separated_data[1]
             year += separated_data[0]
         return f"{day}.{month}.{year}"
-
-print(get_date('2024-03-11T02:26:18.671407'))
