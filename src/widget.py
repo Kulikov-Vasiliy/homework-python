@@ -29,13 +29,12 @@ def get_date(operation_data: str) -> str:
     '2024-03-11T02:26:18.671407'
     и возвращает строку с датой в формате 'ДД.ММ.ГГГГ'"""
     to_change_format = operation_data.split('T' or 'Т')
-    for data in to_change_format:
-        day = ''
-        month = ''
-        year = ''
-        if '-' in data:
-            separated_data = data.split('-')
-            day += separated_data[2]
-            month += separated_data[1]
-            year += separated_data[0]
-        return f"{day}.{month}.{year}"
+    day = ''
+    month = ''
+    year = ''
+    if '-' in to_change_format[0]:
+        separated_data = to_change_format[0].split('-')
+        day += separated_data[2]
+        month += separated_data[1]
+        year += separated_data[0]
+    return f"{day}.{month}.{year}"
