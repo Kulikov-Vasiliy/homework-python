@@ -1,9 +1,9 @@
 [project]
-name = "number-1"
+name = "homework"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Василий"}
+    {name = "Василий",email = "kulikov1999@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.13"
@@ -14,12 +14,6 @@ dependencies = [
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.group.lint.dependencies]
-mypy = "^1.16.1"
-flake8 = "^7.3.0"
-isort = "^6.0.1"
-black = "^25.1.0"
 
 
 [flake8]
@@ -40,3 +34,10 @@ exclude = ".*\\.git.*"
 disallow_untyped_defs = true
 warn_return_any = true
 exclude = ".*\\venv.*"
+
+[tool.poetry.group.lint.dependencies]
+flake8 = "^7.3.0"
+mypy = "^1.17.0"
+isort = "^6.0.1"
+black = "^25.1.0"
+
