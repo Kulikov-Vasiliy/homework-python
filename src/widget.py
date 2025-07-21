@@ -15,6 +15,6 @@ def get_date(operation_data: str) -> str:
     """ "Принимает на вход строку с датой в формате
     '2024-03-11T02:26:18.671407'
     и возвращает строку с датой в формате 'ДД.ММ.ГГГГ'"""
-    date_str, _ = operation_data.split('T')
-    year, month, day = date_str.split('-')
+    date_str, _ = operation_data.split("T")
+    year, month, day = date_str.split("-")
     return f"{day}.{month}.{year}"
