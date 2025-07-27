@@ -9,11 +9,4 @@ from src.masks import get_mask_account
 
 
 
-
-# @pytest.fixture
-# def card_number():
-#     return 7000792289606361
-
-
-
 # @pytest.mark.parametrize("card_number, expected" [])
