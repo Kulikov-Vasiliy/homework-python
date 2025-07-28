@@ -1,4 +1,4 @@
-def get_mask_card_number(card_number: int = None) -> str:
+def get_mask_card_number(card_number: int) -> str:
     """ "Функция маскировки номера банковской карты"""
     if card_number is None:
         raise TypeError("нет открытых продуктов")
@@ -14,7 +14,7 @@ def get_mask_card_number(card_number: int = None) -> str:
     return f"{first_num} {middle_num}** **** {last_num}"
 
 
-def get_mask_account(client_account: int = None) -> str:
+def get_mask_account(client_account: int) -> str:
     """ "Функция маскировки номера банковского счета"""
     if client_account is None:
         raise TypeError("нет открытых счетов")
