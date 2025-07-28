@@ -2,7 +2,7 @@ def get_mask_card_number(card_number: int = None) -> str:
     """ "Функция маскировки номера банковской карты"""
     if card_number is None:
         raise TypeError("нет открытых продуктов")
-    elif type(card_number) != int:
+    elif type(card_number) is not int:
         raise TypeError("некорректный тип данных")
     elif len(str(card_number)) != 16:
         raise ValueError("номер карты должен состоять из 16 символов")
