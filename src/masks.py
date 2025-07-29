@@ -1,29 +1,25 @@
-def get_mask_card_number(card_number: int) -> str:
-    """ "Функция маскировки номера банковской карты"""
-    if card_number is None:
-        raise TypeError("нет открытых продуктов")
-    elif type(card_number) is not int:
+def get_mask_card_number(card_number: str) -> str:
+    """Функция маскировки номера банковской карты"""
+    if type(card_number) is not str or not card_number.isdigit():
         raise TypeError("некорректный тип данных")
-    elif len(str(card_number)) != 16:
-        raise ValueError("номер карты должен состоять из 16 символов")
+    elif len(card_number) != 16:
+        raise ValueError(
+            "номер карты должен состоять из 16 символов" " или нет открытых продуктов"
+        )
     else:
-        mask = str(card_number)
-        first_num = mask[0:4]
-        middle_num = mask[4:6]
-        last_num = mask[-4:]
+        first_num = card_number[0:4]
+        middle_num = card_number[4:6]
+        last_num = card_number[-4:]
     return f"{first_num} {middle_num}** **** {last_num}"
 
 
-def get_mask_account(client_account: int) -> str:
-    """ "Функция маскировки номера банковского счета"""
-    if client_account is None:
-        raise TypeError("нет открытых счетов")
-    elif type(client_account) is not int:
-        raise TypeError("некорректный тип данных")
+def get_mask_account(client_account: str) -> str:
+    """Функция маскировки номера банковского счета"""
+    if type(client_account) is not str or not client_account.isdigit():
+        raise TypeError("некорректный тип данных или нет открытых счетов")
     else:
-        num = str(client_account)
-        if len(num) != 20:
+        if len(client_account) != 20:
             raise ValueError("банковский счет должен состоять из 20 символов")
         else:
-            late_num = num[-4:]
+            late_num = client_account[-4:]
     return f"** {late_num}"

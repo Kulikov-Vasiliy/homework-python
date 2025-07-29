@@ -14,7 +14,7 @@ def test_get_date_if_none():
 
 
 @pytest.fixture
-def goods():
+def spaceless():
     return [
         "Maestro1596837868705199,"
         "MasterCard7158300734726758,"
@@ -26,7 +26,7 @@ def goods():
 
 
 @pytest.fixture
-def products():
+def spaceless_digit():
     return [
         "1596837868705199,"
         "7158300734726758,"
@@ -38,14 +38,14 @@ def products():
 
 
 @pytest.fixture
-def numbers():
+def number():
     return [
         "Maestro," "MasterCard," "Счет," "Visa Classic," "Visa Platinum," "Visa Gold,"
     ]
 
 
 @pytest.mark.parametrize(
-    "good",
+    "spaceless",
     [
         ("Maestro1596837868705199,", ["некорректный формат продукта или счета"]),
         ("MasterCard7158300734726758,", ["некорректный формат продукта или счета"]),
@@ -55,13 +55,13 @@ def numbers():
         ("VisaGold5999414228426353", ["некорректный формат продукта или счета"]),
     ],
 )
-def test_mask_account_card_if_no_whitespace(good):
+def test_mask_account_card_if_no_whitespace(spaceless):
     with pytest.raises(ValueError, match="некорректный формат продукта или счета"):
-        mask_account_card(good)
+        mask_account_card(spaceless)
 
 
 @pytest.mark.parametrize(
-    "product",
+    "spaceless_digit",
     [
         ("1596837868705199,", ["некорректный формат продукта или счета"]),
         ("7158300734726758,", ["некорректный формат продукта или счета"]),
@@ -71,9 +71,9 @@ def test_mask_account_card_if_no_whitespace(good):
         ("5999414228426353", ["некорректный формат продукта или счета"]),
     ],
 )
-def test_mask_account_card_if_no_name(product):
+def test_mask_account_card_if_no_name(spaceless_digit):
     with pytest.raises(ValueError, match="некорректный формат продукта или счета"):
-        mask_account_card(product)
+        mask_account_card(spaceless_digit)
 
 
 @pytest.mark.parametrize(
@@ -96,7 +96,7 @@ def test_mask_account_card_if_no_numbers(number):
 def date_formats():
     return [
         "2024.03.11T02:26:18.671407",
-        "2024-03-11 02:26:18.671407",
+        "2024-03.11 02:26:18.671407",
         "2024.03.11 02:26:18.671407",
     ]
 
@@ -105,7 +105,7 @@ def date_formats():
     "date_format",
     [
         ("2024.03.11T02:26:18.671407", ["некорректный формат даты"]),
-        ("2024-03-11 02:26:18.671407", ["некорректный формат даты"]),
+        ("2024-03.11 02:26:18.671407", ["некорректный формат даты"]),
         ("2024.03.11 02:26:18.671407", ["некорректный формат даты"]),
     ],
 )
