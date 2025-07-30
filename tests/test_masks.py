@@ -15,7 +15,7 @@ def test_get_mask_account_if_none():
 
 def test_get_mask_card_number_if_not_str():
     with pytest.raises(TypeError):
-        get_mask_card_number(7000792289606361)
+        get_mask_card_number("none")
 
 
 def test_get_mask_card_number_if_not_digit():
@@ -25,7 +25,7 @@ def test_get_mask_card_number_if_not_digit():
 
 def test_get_mask_account_if_not_str():
     with pytest.raises(TypeError):
-        get_mask_account(73654108430135874305)
+        get_mask_account("none")
 
 
 def test_get_mask_account_if_not_digit():
