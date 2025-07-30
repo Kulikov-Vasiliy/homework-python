@@ -55,7 +55,7 @@ def number():
         ("VisaGold5999414228426353", ["некорректный формат продукта или счета"]),
     ],
 )
-def test_mask_account_card_if_no_whitespace(spaceless):
+def test_mask_account_card_if_no_space(spaceless):
     with pytest.raises(ValueError, match="некорректный формат продукта или счета"):
         mask_account_card(spaceless)
 
