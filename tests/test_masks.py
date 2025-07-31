@@ -35,13 +35,16 @@ def test_get_mask_account_if_not_digit():
 
 @pytest.fixture
 def mask():
-    return (
+    return "7000792289606", "70007922896063611"
+
+
+@pytest.mark.parametrize(
+    "mask",
+    [
         "7000792289606",
-        "70007922896063611",
-    )
-
-
-@pytest.mark.parametrize("mask", ["7000792289606", "700079228960636111"])
+        "700079228960636111",
+    ],
+)
 def test_mask_card_number_if_not_sixteen(mask):
     with pytest.raises(ValueError, match="номер карты должен состоять из 16 символов"):
         get_mask_card_number(mask)
@@ -67,4 +70,4 @@ def test_get_mask_account_if_not_twenty(account):
 
 
 assert get_mask_card_number("7000792289606361") == "7000 79** **** 6361"
-assert get_mask_account("73654108430135874305") == "** 4305"
+assert get_mask_account("73654108430135874305") == "**4305"
