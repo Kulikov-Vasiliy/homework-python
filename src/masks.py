@@ -4,7 +4,7 @@ def get_mask_card_number(card_number: str) -> str:
         raise TypeError("некорректный тип данных")
     if len(card_number) != 16:
         raise ValueError(
-            "номер карты должен состоять из 16 символов" " или нет открытых продуктов"
+            "номер карты должен состоять из 16 символов или нет открытых продуктов"
         )
     first_num = card_number[0:4]
     middle_num = card_number[4:6]
@@ -19,4 +19,4 @@ def get_mask_account(client_account: str) -> str:
     if len(client_account) != 20:
         raise ValueError("банковский счет должен состоять из 20 символов")
     late_num = client_account[-4:]
-    return f"** {late_num}"
+    return f"**{late_num}"

@@ -5,20 +5,21 @@ def mask_account_card(confidential_info: str) -> str:
     """Функция, которая обрабатывает информацию о картах и о счетах"""
     if confidential_info.count(" ") == 0:
         raise ValueError("некорректный формат продукта или счета")
-    name, number = confidential_info.rsplit(" ", maxsplit=1)
-    spaceless_name = ""
-    if " " in name:
-        spaceless_name += name.replace(" ", "")
-    elif " " not in name:
-        spaceless_name += name
-        if not spaceless_name.isalpha():
-            raise ValueError("некорректный формат продукта или счета")
-    if name.lower() == "счет":
-        masked_number = get_mask_account(number)
-    else:
-        masked_number = get_mask_card_number(number)
+    separated_info = confidential_info.split(", ")
+    number = []
+    name = []
+    for el in separated_info:
+        number.append(el.split()[-1])
+        name.append(" ".join(el.split()[:-1]))
+    result = []
+    for i in range(len(number)):
+        if name[i].lower() == "счет":
+            masked_number = get_mask_account(number[i])
+        else:
+            masked_number = get_mask_card_number(number[i])
+        result.append(f"{name[i]} {masked_number}")
 
-    return f"{name} {masked_number}"
+    return ", ".join(result)
 
 
 def get_date(operation_data: str) -> str:

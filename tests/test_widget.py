@@ -91,13 +91,31 @@ def test_get_date_if_incorrect_format(date_format):
         get_date(date_format)
 
 
-assert mask_account_card("Maestro 1596837868705199") == "Maestro 1596 83** **** 5199"
-assert (
-    mask_account_card("MasterCard 7158300734726758") == "MasterCard 7158 30** **** 6758"
+@pytest.fixture
+def entry_info():
+    return (
+        "Maestro 1596837868705199, "
+        "MasterCard 7158300734726758, "
+        "Счет 35383033474447895560, "
+        "Visa Classic 6831982476737658, "
+        "Visa Platinum 8990922113665229, "
+        "Visa Gold 5999414228426353, "
+    )
+
+
+@pytest.mark.parametrize(
+    "entry_info, expected",
+    [
+        ("Maestro 1596837868705199", "Maestro 1596 83** **** 5199"),
+        ("MasterCard 7158300734726758", "MasterCard 7158 30** **** 6758"),
+        ("Счет 35383033474447895560", "Счет **5560"),
+        ("Visa Classic 6831982476737658", "Visa Classic 6831 98** **** 7658"),
+        ("Visa Platinum 8990922113665229", "Visa Platinum 8990 92** **** 5229"),
+        ("Visa Gold 5999414228426353", "Visa Gold 5999 41** **** 6353"),
+    ],
 )
-assert mask_account_card("Счет 35383033474447895560") == "Счет **5560"
-assert (
-    mask_account_card("Visa Classic 6831982476737658")
-    == "Visa Classic 6831 98** **** 7658"
-)
+def test_mask_account_card(entry_info, expected):
+    assert mask_account_card(entry_info) == expected
+
+
 assert get_date("2024-03-11T02:26:18.671407") == "11.03.2024"
