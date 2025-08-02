@@ -3,14 +3,29 @@ from src.masks import get_mask_account, get_mask_card_number
 
 def mask_account_card(confidential_info: str) -> str:
     """Функция, которая обрабатывает информацию о картах и о счетах"""
-    if confidential_info.count(" ") == 0:
+    if confidential_info is None:
         raise ValueError("некорректный формат продукта или счета")
-    separated_info = confidential_info.split(", ")
+
     number = []
     name = []
-    for el in separated_info:
-        number.append(el.split()[-1])
-        name.append(" ".join(el.split()[:-1]))
+    if ", " in confidential_info:
+        separated = confidential_info.split(", ")
+        for el in separated:
+            number.append(el.split(" ")[-1])
+            name.append(" ".join(el.split()[:-1]))
+    else:
+        number.append(confidential_info.split()[-1])
+        name.append(" ".join(confidential_info.split()[:-1]))
+
+    spaceless_name = ""
+    for title in name:
+        if " " in title:
+            spaceless_name += title.replace(" ", "")
+        elif " " not in title:
+            spaceless_name += title
+    if not spaceless_name.isalpha():
+        raise ValueError("некорректный формат продукта или счета")
+
     result = []
     for i in range(len(number)):
         if name[i].lower() == "счет":

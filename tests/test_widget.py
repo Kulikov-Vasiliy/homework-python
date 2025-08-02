@@ -15,26 +15,14 @@ def test_get_date_if_none():
 
 @pytest.fixture
 def spaceless():
-    return [
-        "Maestro1596837868705199,"
-        "MasterCard7158300734726758,"
-        "Счет35383033474447895560,"
-        "VisaClassic6831982476737658,"
-        "VisaPlatinum8990922113665229,"
-        "VisaGold5999414228426353,"
-    ]
-
-
-@pytest.fixture
-def spaceless_digit():
-    return [
-        "1596837868705199,",
-        "7158300734726758,",
-        "35383033474447895560,",
-        "6831982476737658,",
-        "8990922113665229,",
-        "5999414228426353,",
-    ]
+    return (
+        "Maestro1596837868705199,",
+        "MasterCard7158300734726758,",
+        "Счет35383033474447895560,",
+        "VisaClassic6831982476737658,",
+        "VisaPlatinum8990922113665229,",
+        "VisaGold5999414228426353",
+    )
 
 
 @pytest.mark.parametrize(
@@ -53,6 +41,18 @@ def test_mask_account_card_if_no_space(spaceless):
         mask_account_card(spaceless)
 
 
+@pytest.fixture
+def spaceless_digit():
+    return (
+        "1596837868705199,",
+        "7158300734726758,",
+        "35383033474447895560,",
+        "6831982476737658,",
+        "VisaPlatinum123asdasdad",
+        "5999414228426353",
+    )
+
+
 @pytest.mark.parametrize(
     "spaceless_digit",
     [
@@ -67,28 +67,6 @@ def test_mask_account_card_if_no_space(spaceless):
 def test_mask_account_card_if_no_name(spaceless_digit):
     with pytest.raises(ValueError, match="некорректный формат продукта или счета"):
         mask_account_card(spaceless_digit)
-
-
-@pytest.fixture
-def date_formats():
-    return (
-        "2024.03.11T02:26:18.671407",
-        "2024-03.11 02:26:18.671407",
-        "2024.03.11 02:26:18.671407",
-    )
-
-
-@pytest.mark.parametrize(
-    "date_format",
-    [
-        "2024.03.11T02:26:18.671407",
-        "2024-03.11 02:26:18.671407",
-        "2024.03.11 02:26:18.671407",
-    ],
-)
-def test_get_date_if_incorrect_format(date_format):
-    with pytest.raises(ValueError, match="некорректный формат даты"):
-        get_date(date_format)
 
 
 @pytest.fixture
@@ -118,4 +96,27 @@ def test_mask_account_card(entry_info, expected):
     assert mask_account_card(entry_info) == expected
 
 
-assert get_date("2024-03-11T02:26:18.671407") == "11.03.2024"
+@pytest.fixture
+def date_formats():
+    return (
+        "2024.03.11T02:26:18.671407",
+        "2024-03.11 02:26:18.671407",
+        "2024.03.11 02:26:18.671407",
+    )
+
+
+@pytest.mark.parametrize(
+    "date_format",
+    [
+        "2024.03.11T02:26:18.671407",
+        "2024-03.11 02:26:18.671407",
+        "2024.03.11 02:26:18.671407",
+    ],
+)
+def test_get_date_if_incorrect_format(date_format):
+    with pytest.raises(ValueError, match="некорректный формат даты"):
+        get_date(date_format)
+
+
+def test_get_date():
+    assert get_date("2024-03-11T02:26:18.671407") == "11.03.2024"
