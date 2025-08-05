@@ -1,13 +1,19 @@
 from src.masks import get_mask_account, get_mask_card_number
 
 
-def mask_account_card(*confidential_info: str) -> str:
+def mask_account_card(confidential_info: str) -> str:
     """Функция, которая обрабатывает информацию о картах и о счетах"""
     name = []
     number = []
-    for el in confidential_info:
-        name.append(' '.join(el.split()[:-1]))
-        number.append(el.split()[-1])
+
+    if ", " in confidential_info:
+        separated = confidential_info.split(", ")
+        for el in separated:
+            number.append(el.split()[-1])
+            name.append(" ".join(el.split()[:-1]))
+    else:  # без else не читает, как "иначе"
+        name.append(" ".join(confidential_info.split()[:-1]))
+        number.append(confidential_info.split()[-1])
 
     spaceless_name = ""
     for title in name:
