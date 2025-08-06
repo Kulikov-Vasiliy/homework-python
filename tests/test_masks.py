@@ -3,19 +3,9 @@ import pytest
 from src.masks import get_mask_account, get_mask_card_number
 
 
-def test_get_mask_card_number_if_not_str():
-    with pytest.raises(TypeError):
-        get_mask_card_number("none")
-
-
 def test_get_mask_card_number_if_not_digit():
     with pytest.raises(TypeError):
         get_mask_card_number("none")
-
-
-def test_get_mask_account_if_not_str():
-    with pytest.raises(TypeError):
-        get_mask_account("none")
 
 
 def test_get_mask_account_if_not_digit():
