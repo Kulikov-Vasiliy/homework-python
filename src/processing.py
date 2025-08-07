@@ -5,7 +5,7 @@ def filter_by_state(my_list: list, state="EXECUTED") -> list:
     return [el for el in my_list if el["state"] == state]
 
 
-def sort_by_date(my_list: list, ascending=False) -> list:
-    """ "Принимает список словарей и необязательный параметр, задающий порядок сортировки(по умолчанию — убывание)
-    и возвращать новый список, отсортированный по дате"""
-    return sorted(my_list, key=lambda x: x.get("date"), reverse=True)
+def sort_by_date(my_list: list[dict], ascending: bool = False) -> list[dict]:
+    """Принимает список словарей и необязательный параметр, задающий порядок сортировки
+    (по умолчанию — убывание) и возвращать новый список, отсортированный по дате"""
+    return sorted(my_list, key=lambda x: x.get("date", ascending), reverse=True)
