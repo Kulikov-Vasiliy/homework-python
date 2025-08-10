@@ -23,15 +23,15 @@ def card_number_generator(start, stop: int, m=9999999999999999) -> iter: # type:
     """Функция выдает номера банковских карт в формате XXXX XXXX XXXX XXXX,
     где X — цифра номера карты. Генератор может сгенерировать номера карт в
     заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999.
-    Генератор принимает начальное и конечное значения для генерации диапазона номеров.
-    """
-    if start >= 1:
+    Генератор принимает начальное и конечное значения для генерации диапазона номеров"""
+    if start < 1:
+        raise ValueError('ошибка')
+    elif start >= 1:
         if stop is None:
             stop = m
         for gen_num in range(start, (stop + 1)):
             less_m = 16 - len(str(gen_num))
             if less_m <= 16:
                 card_num = ("0" * less_m) + str(gen_num)
-                yield card_num[:4] + " " + card_num[4:8] + " " + card_num[
-                    8:12
-                ] + " " + card_num[12:]
+                yield card_num[:4] + " " + card_num[4:8] + (" "
+                    "") + card_num[8:12] + " " + card_num[12:]
