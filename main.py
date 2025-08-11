@@ -136,5 +136,5 @@ if __name__ == "__main__":
     descriptions = transaction_descriptions(transactions)
     for _ in range(5):
         print(next(descriptions))
-    for card_number in card_number_generator(0, 3): # type: ignore
+    for card_number in card_number_generator(0, 3):  # type: ignore
         print(card_number)
