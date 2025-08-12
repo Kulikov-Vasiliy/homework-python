@@ -1,6 +1,7 @@
 from src import masks, processing, widget
 from src.generators import (card_number_generator, filter_by_currency,
                             transaction_descriptions)
+from src.decorators import my_function
 
 if __name__ == "__main__":
     print(masks.get_mask_card_number("7000792289606361"))
@@ -138,3 +139,4 @@ if __name__ == "__main__":
         print(next(descriptions))
     for card_number in card_number_generator(1, 3):  # type: ignore
         print(card_number)
+    print(my_function(1, 2))
