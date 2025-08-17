@@ -9,7 +9,7 @@ def filter_by_currency(transactions: list[dict], code="USD") -> iter:  # type: i
             yield el
 
 
-def transaction_descriptions(transactions: list[dict]) -> iter:  # type: ignore
+def transaction_descriptions(transactions: list[dict]) -> iter: # type: ignore
     """Функция принимает список словарей с транзакциями
     и возвращает описание каждой операции по очереди."""
     if transactions is None:
