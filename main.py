@@ -2,6 +2,11 @@ from src import masks, processing, widget
 from src.decorators import my_function
 from src.generators import (card_number_generator, filter_by_currency,
                             transaction_descriptions)
+from src.utils import json_to_list
+import os
+
+BASE_DIR = os.path.dirname(__file__)
+DATA_PATH = os.path.join(BASE_DIR, "..", "data", 'operations.json')
 
 if __name__ == "__main__":
     print(masks.get_mask_card_number("7000792289606361"))
@@ -140,3 +145,4 @@ if __name__ == "__main__":
     for card_number in card_number_generator(1, 3):  # type: ignore
         print(card_number)
     my_function("1", "y=2")
+    print(json_to_list('operations.jon'))

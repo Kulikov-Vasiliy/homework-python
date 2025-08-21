@@ -1,0 +1,24 @@
+import os
+# import requests
+import json
+
+
+BASE_DIR = os.path.dirname(__file__)
+DATA_PATH = os.path.join(BASE_DIR, "..", "data", 'operations.json')
+
+
+def json_to_list(operations: list[dict]) -> list[dict]:
+    """Функция принимает на вход путь до JSON-файла и возвращает список
+     словарей с данными о финансовых транзакциях.
+     * Если файл пустой, содержит не список или не найден,
+      функция возвращает пустой список. """
+    try:
+        with open(DATA_PATH, 'r', encoding="utf-8") as f:
+            parsed_operations = json.load(f)
+            if parsed_operations is None or type(parsed_operations) != list:
+                return []
+            return parsed_operations
+    except FileNotFoundError:
+        return []
+    except json.JSONDecodeError:
+        return []
