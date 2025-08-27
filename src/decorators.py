@@ -36,5 +36,5 @@ def log(filename=None):
 
 
 @log(filename="mylog.txt")
-def my_function(x, y: int or str) -> int or str: # type: ignore
+def my_function(x, y: int or str) -> int or str:  # type: ignore
     return x + y

@@ -1,4 +1,3 @@
-import tempfile
 import os
 from unittest.mock import mock_open, patch
 
@@ -44,6 +43,7 @@ def test_my_function_args_err(capsys):
                 "my_function error: can only concatenate"
                 " str (not 'int') to str. Inputs: ('1', 2), {}"
             )
+            mocked_file.assert_not_called()
 
 
 def test_my_function_kwargs_err(capsys):
@@ -55,6 +55,7 @@ def test_my_function_kwargs_err(capsys):
                 "my_function error: unsupported operand"
                 " type(s) for +: 'int' and 'str'. Inputs: (3,), {'y': '5'}"
             )
+            mocked_file.assert_not_called()
 
 
 @pytest.mark.parametrize(
