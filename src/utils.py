@@ -16,6 +16,7 @@ def json_to_list(operations: list[dict]) -> list[dict]:
             if parsed_operations is None or type(parsed_operations) is not list:
                 return []
             return parsed_operations
+
     except FileNotFoundError:
         return []
     except json.JSONDecodeError:
