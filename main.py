@@ -3,11 +3,8 @@ import os
 from src import masks, processing, utils, widget
 from src.decorators import my_function
 from src.external_api import converted_operations
-from src.generators import (
-    card_number_generator,
-    filter_by_currency,
-    transaction_descriptions,
-)
+from src.generators import (card_number_generator, filter_by_currency,
+                            transaction_descriptions)
 
 BASE_DIR = os.path.dirname(__file__)
 DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")
@@ -151,4 +148,4 @@ if __name__ == "__main__":
         print(card_number)
     my_function(1, 2)
     print(utils.json_to_list("operations.jon"))  # type: ignore
-    print(converted_operations)  # type: ignore
+    print(converted_operations)

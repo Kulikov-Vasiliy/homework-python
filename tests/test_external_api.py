@@ -35,7 +35,9 @@ def test_currency_to_rubs_if_json_decode_error():
 
 
 def test_currency_to_rubs_if_json_incorrect():
-    with patch("builtins.open", mock_open(read_data="not a json")) as mocked_file:  # noqa: F841
+    with patch(
+        "builtins.open", mock_open(read_data="not a json")
+    ) as mocked_file:  # noqa: F841
         side_effect = json.JSONDecodeError  # noqa: F841
         result = currency_to_rubs("operations.json")
         assert result is None
