@@ -6,6 +6,7 @@ import requests
 from dotenv import load_dotenv
 
 from src import utils
+from src.utils import json_to_list
 
 BASE_DIR = os.path.dirname(__file__)
 
@@ -15,7 +16,7 @@ DATA_PATH_API = os.getenv("API_KEY")
 DATA_PATH_CONVERTED = os.path.join(BASE_DIR, "..", "data", "converted.json")
 
 
-def currency_to_rubs(operations: list[dict]) -> float | str:
+def currency_to_rubs(json_to_list: list[dict]) -> float | str:
     """Функция принимает на вход транзакцию и возвращает сумму транзакции (amount) в рублях.
     * Если транзакция была в USD или EUR, происходит обращение к внешнему API для получения
     текущего курса валют и конвертации суммы операции в рубли."""
@@ -48,19 +49,4 @@ def currency_to_rubs(operations: list[dict]) -> float | str:
             return f"Client Error: {response.status_code}"
 
 
-def write_to_file(converted_amount: float, file_path: str):
-    operations = utils.json_to_list("operations.json")  # type: ignore
-    for operation in operations:
-        if isinstance(operation, dict) and "operationAmount" in operation:
-            if operation.get("operationAmount", {}).get("currency", {}).get("code") != "RUB":
-                operation["operationAmount"]["amount"] = converted_amount
-                operation["operationAmount"]["currency"]["code"] = "RUB"
-                operation["operationAmount"]["currency"]["name"] = "руб."
-
-    with open(file_path, "w", encoding="UTF-8") as f:
-        json.dump(operations, f, ensure_ascii=False, indent=2)
-    print('result in "converted.json"')
-
-
-converted_operations = currency_to_rubs("operations.json")  # type: ignore
-write_to_file(converted_operations, DATA_PATH_CONVERTED)
+converted_operations = currency_to_rubs(json_to_list)

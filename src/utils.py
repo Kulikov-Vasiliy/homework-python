@@ -13,7 +13,7 @@ BASE_DIR = os.path.dirname(__file__)
 DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")
 
 
-def json_to_list(operations: list[dict]) -> list[dict]:
+def json_to_list(parsed_operations: list[dict]) -> list[dict]:
     """Функция принимает на вход путь до JSON-файла и возвращает список
     словарей с данными о финансовых транзакциях.
     * Если файл пустой, содержит не список или не найден,
