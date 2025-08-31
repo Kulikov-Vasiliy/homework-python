@@ -19,7 +19,7 @@
     "state": "EXECUTED",
     "date": "2019-07-03T18:35:29.512364",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -34,7 +34,7 @@
     "state": "EXECUTED",
     "date": "2018-06-30T02:08:58.425572",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -63,7 +63,7 @@
     "state": "EXECUTED",
     "date": "2019-04-04T23:20:05.206878",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -93,7 +93,7 @@
     "state": "EXECUTED",
     "date": "2018-12-20T16:43:26.929246",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -108,7 +108,7 @@
     "state": "EXECUTED",
     "date": "2019-07-12T20:41:47.882230",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -123,7 +123,7 @@
     "state": "EXECUTED",
     "date": "2018-08-19T04:27:37.904916",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -152,7 +152,7 @@
     "state": "EXECUTED",
     "date": "2018-04-04T17:33:34.701093",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -167,7 +167,7 @@
     "state": "EXECUTED",
     "date": "2019-12-08T22:46:21.935582",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -226,7 +226,7 @@
     "state": "EXECUTED",
     "date": "2018-11-29T07:18:23.941293",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -256,7 +256,7 @@
     "state": "EXECUTED",
     "date": "2019-09-11T17:30:34.445824",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -271,7 +271,7 @@
     "state": "EXECUTED",
     "date": "2018-10-14T22:27:25.205631",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -286,7 +286,7 @@
     "state": "EXECUTED",
     "date": "2019-04-12T17:27:27.896421",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -316,7 +316,7 @@
     "state": "EXECUTED",
     "date": "2018-03-02T02:03:11.563721",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -331,7 +331,7 @@
     "state": "EXECUTED",
     "date": "2018-06-12T07:17:01.311610",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -346,7 +346,7 @@
     "state": "EXECUTED",
     "date": "2018-12-28T23:10:35.459698",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -390,7 +390,7 @@
     "state": "EXECUTED",
     "date": "2018-02-22T00:40:19.984219",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -405,7 +405,7 @@
     "state": "EXECUTED",
     "date": "2019-09-29T14:25:28.588059",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -435,7 +435,7 @@
     "state": "EXECUTED",
     "date": "2018-11-23T23:52:36.999661",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -450,7 +450,7 @@
     "state": "CANCELED",
     "date": "2019-01-15T17:58:27.064377",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -480,7 +480,7 @@
     "state": "EXECUTED",
     "date": "2018-07-31T12:25:32.579413",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -495,7 +495,7 @@
     "state": "CANCELED",
     "date": "2018-10-08T09:05:05.282282",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -540,7 +540,7 @@
     "state": "EXECUTED",
     "date": "2019-06-14T19:37:49.044089",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -614,7 +614,7 @@
     "state": "EXECUTED",
     "date": "2018-06-04T06:59:55.424356",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -629,7 +629,7 @@
     "state": "EXECUTED",
     "date": "2018-10-15T08:05:34.061711",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -674,7 +674,7 @@
     "state": "EXECUTED",
     "date": "2018-11-08T08:21:45.902633",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -704,7 +704,7 @@
     "state": "EXECUTED",
     "date": "2018-01-23T01:48:30.477053",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -719,7 +719,7 @@
     "state": "EXECUTED",
     "date": "2018-01-13T13:00:58.458625",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -734,7 +734,7 @@
     "state": "EXECUTED",
     "date": "2018-12-18T17:07:09.800800",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -749,7 +749,7 @@
     "state": "EXECUTED",
     "date": "2019-07-08T00:08:32.986663",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -793,7 +793,7 @@
     "state": "EXECUTED",
     "date": "2019-03-03T03:13:18.622393",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -808,7 +808,7 @@
     "state": "EXECUTED",
     "date": "2018-08-25T02:58:18.764678",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -838,7 +838,7 @@
     "state": "CANCELED",
     "date": "2019-12-03T04:27:03.427014",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -897,7 +897,7 @@
     "state": "EXECUTED",
     "date": "2019-05-07T01:32:37.142797",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -912,7 +912,7 @@
     "state": "CANCELED",
     "date": "2019-05-17T01:50:00.166954",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -927,7 +927,7 @@
     "state": "EXECUTED",
     "date": "2019-02-08T09:09:35.038506",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -942,7 +942,7 @@
     "state": "EXECUTED",
     "date": "2019-06-16T22:17:01.825020",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -957,7 +957,7 @@
     "state": "EXECUTED",
     "date": "2018-05-04T03:29:30.253483",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -972,7 +972,7 @@
     "state": "EXECUTED",
     "date": "2019-03-29T10:57:20.635567",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1032,7 +1032,7 @@
     "state": "EXECUTED",
     "date": "2018-12-23T11:47:52.403285",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1047,7 +1047,7 @@
     "state": "EXECUTED",
     "date": "2019-12-07T06:17:14.634890",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1122,7 +1122,7 @@
     "state": "EXECUTED",
     "date": "2018-04-16T17:34:19.241289",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1152,7 +1152,7 @@
     "state": "EXECUTED",
     "date": "2018-07-22T07:42:32.953324",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1181,7 +1181,7 @@
     "state": "CANCELED",
     "date": "2018-08-17T03:57:28.607101",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1196,7 +1196,7 @@
     "state": "EXECUTED",
     "date": "2019-02-12T00:08:07.524972",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1331,7 +1331,7 @@
     "state": "CANCELED",
     "date": "2018-06-24T00:46:32.422648",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1346,7 +1346,7 @@
     "state": "EXECUTED",
     "date": "2019-09-06T00:48:01.081967",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1361,7 +1361,7 @@
     "state": "EXECUTED",
     "date": "2018-06-20T03:59:34.851630",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1376,7 +1376,7 @@
     "state": "EXECUTED",
     "date": "2019-08-19T16:30:41.967497",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1391,7 +1391,7 @@
     "state": "EXECUTED",
     "date": "2018-12-22T02:02:49.564873",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1406,7 +1406,7 @@
     "state": "EXECUTED",
     "date": "2019-05-19T12:51:49.023880",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"
@@ -1451,7 +1451,7 @@
     "state": "EXECUTED",
     "date": "2019-07-15T11:47:40.496961",
     "operationAmount": {
-      "amount": "Client Error: 429",
+      "amount": "31957.58",
       "currency": {
         "name": "руб.",
         "code": "RUB"

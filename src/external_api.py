@@ -36,8 +36,10 @@ def currency_to_rubs(operations: list[dict]) -> float | str:
                 result = response.json()
                 converted_amount = result.get("result", 0)
                 time.sleep(3)
+                converted_operation = operation["operationAmount"]["amount"] = converted_amount
 
-                return converted_amount
+                return converted_operation
+            return amount
 
     except requests.exceptions.HTTPError:
         if 500 <= response.status_code < 600:
