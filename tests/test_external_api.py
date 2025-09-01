@@ -11,14 +11,14 @@ DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")
 
 
 @patch("requests.get")
-def test_currency_to_rubs_api_success(mock_get):
+def test_currency_to_rubs_api_success(mock_get, operations):
     mock_response = Mock()
     mock_response.status_code = 200
     mock_response.json.return_value = {"success": True, "result": 1000.00}
     mock_get.return_value = mock_response
 
-    result = currency_to_rubs("operations.json")
-    assert result == 1000.0
+    result = currency_to_rubs(operations)
+    assert result == 1000.00
 
 
 def test_currency_to_rubs_if_file_not_found_error():
@@ -50,29 +50,25 @@ def test_currency_to_rubs_if_json_none():
 
 
 @patch("requests.get")
-def test_currency_to_rubs_if_4xx(mock_get):
+def test_currency_to_rubs_if_4xx(mock_get, operations):
     # Настраиваем mock на возврат ошибки HTTP 429
     mock_response = Mock()
     mock_response.status_code = 450
-    mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError(
-        "450 Client Error"
-    )
+    mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError("450 Client Error")
     mock_response.json.return_value = {}
     mock_get.return_value = mock_response
 
-    result = currency_to_rubs("operations.json")
+    result = currency_to_rubs(operations)
     assert result == "Client Error: 450"
 
 
 @patch("requests.get")
-def test_currency_to_rubs_if_5xx(mock_get):
+def test_currency_to_rubs_if_5xx(mock_get, operations):
     mock_response = Mock()
     mock_response.status_code = 504
-    mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError(
-        "504 Server Error"
-    )
+    mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError("504 Server Error")
     mock_response.json.return_value = {}
     mock_get.return_value = mock_response
 
-    result = currency_to_rubs("operations.json")
+    result = currency_to_rubs(operations)
     assert result == "Server Error"
