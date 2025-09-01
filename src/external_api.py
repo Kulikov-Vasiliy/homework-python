@@ -5,13 +5,10 @@ import requests
 from dotenv import load_dotenv
 
 from src.utils import json_to_list
-
-BASE_DIR = os.path.dirname(__file__)
+from tests.test_decorators import DATA_PATH
 
 load_dotenv()
 DATA_PATH_API = os.getenv("API_KEY")
-
-DATA_PATH_CONVERTED = os.path.join(BASE_DIR, "..", "data", "converted.json")
 
 
 def currency_to_rubs(operations) -> float | str:
@@ -48,5 +45,5 @@ def currency_to_rubs(operations) -> float | str:
             return f"Client Error: {response.status_code}"
 
 
-operations = json_to_list("operations.json")  # type: ignore
+operations = json_to_list(path_file=DATA_PATH)
 converted_operations = currency_to_rubs(operations)

@@ -6,9 +6,6 @@ import requests
 
 from src.external_api import currency_to_rubs
 
-BASE_DIR = os.path.dirname(__file__)
-DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")
-
 
 @patch("requests.get")
 def test_currency_to_rubs_api_success(mock_get, operations):
