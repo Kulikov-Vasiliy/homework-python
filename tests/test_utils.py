@@ -8,7 +8,35 @@ BASE_DIR = os.path.dirname(__file__)
 DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")
 
 
-def test_json_to_list():
+def test_json_to_list_if_file_not_found_error():
+    with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
+        side_effect = FileNotFoundError  # noqa: F841
+        result = json_to_list("operations.json")
+        assert result == []
+
+
+def test_json_to_list_if_json_decode_error():
+    with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
+        side_effect = json.JSONDecodeError  # noqa: F841
+        result = json_to_list("operations.json")
+        assert result == []
+
+
+def test_json_to_list_if_parsed_operations_is_none():
+    with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
+        mock_open(read_data=None)
+        result = json_to_list("operations.json")
+        assert result == []
+
+
+def test_json_to_list_if_parsed_operations_is_not_list():
+    with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
+        mock_open(read_data='{"key": "value"}')
+        result = json_to_list("operations.json")
+        assert result == []
+
+
+def test_json_to_list_filled_operations():
     result = json_to_list("operations.json")
     assert result == [
         {
@@ -891,7 +919,6 @@ def test_json_to_list():
             "from": "Счет 59956820797131895975",
             "to": "Счет 43475624104328495820",
         },
-        {},
         {
             "id": 509552992,
             "state": "EXECUTED",
@@ -1203,31 +1230,3 @@ def test_json_to_list():
             "to": "Счет 96527012349577388612",
         },
     ]
-
-
-def test_json_to_list_if_FileNotFoundError():
-    with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
-        side_effect = FileNotFoundError  # noqa: F841
-        result = json_to_list("operations.json")
-        assert result == []
-
-
-def test_json_to_list_if_JSONDecodeError():
-    with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
-        side_effect = json.JSONDecodeError  # noqa: F841
-        result = json_to_list("operations.json")
-        assert result == []
-
-
-def test_json_to_list_if_parsed_operations_is_None():
-    with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
-        mock_open(read_data=None)
-        result = json_to_list("operations.json")
-        assert result == []
-
-
-def test_json_to_list_if_parsed_operations_is_not_list():
-    with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
-        mock_open(read_data='{"key": "value"}')
-        result = json_to_list("operations.json")
-        assert result == []

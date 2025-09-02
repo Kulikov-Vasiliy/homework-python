@@ -12,6 +12,8 @@ import os
 BASE_DIR = os.path.dirname(__file__)
 DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")
 
+operations_filled = []
+
 
 def json_to_list(path_file: list[dict]) -> list[dict]:
     """Функция принимает на вход путь до JSON-файла и возвращает список
@@ -19,13 +21,21 @@ def json_to_list(path_file: list[dict]) -> list[dict]:
     * Если файл пустой, содержит не список или не найден,
     функция возвращает пустой список."""
     try:
+
         with open(DATA_PATH, "r", encoding="utf-8") as f:
             parsed_operations = json.load(f)
+
             if parsed_operations is None or type(parsed_operations) is not list:
                 return []
-            return parsed_operations
+
+            for operation in parsed_operations:
+                if operation != {}:
+                    operations_filled.append(operation)
 
     except FileNotFoundError:
         return []
     except json.JSONDecodeError:
         return []
+
+    finally:
+        return operations_filled
