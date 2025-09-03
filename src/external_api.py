@@ -9,8 +9,6 @@ from src.utils import operations_filled, json_to_list, DATA_PATH
 load_dotenv()
 DATA_PATH_API = os.getenv("API_KEY")
 
-converted_amounts = []
-
 
 def currency_to_rubs(operations: list[dict]) -> float | str:
     """Функция принимает на вход транзакцию и возвращает сумму транзакции (amount) в рублях.
@@ -32,7 +30,6 @@ def currency_to_rubs(operations: list[dict]) -> float | str:
                 result = response.json()
                 converted_amount = round(result.get("result", 0), 2)
                 time.sleep(3)
-                converted_amounts.append(converted_amount)
 
     except requests.exceptions.HTTPError:
         if 500 <= response.status_code < 600:
@@ -40,9 +37,9 @@ def currency_to_rubs(operations: list[dict]) -> float | str:
         elif 400 <= response.status_code < 500:
             return f"Client Error: {response.status_code}"
 
-    finally:
-        for converted_amount in converted_amounts:
-            return converted_amount or "No conversion needed"
+
+for operation in json_to_list(DATA_PATH):
+    print(currency_to_rubs(operation))
 
 
 operations = json_to_list(path_file=DATA_PATH)
