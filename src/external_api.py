@@ -4,13 +4,13 @@ import time
 import requests
 from dotenv import load_dotenv
 
-from src.utils import operations_filled, json_to_list, DATA_PATH
+from src.utils import DATA_PATH, json_to_list, operations_filled
 
 load_dotenv()
 DATA_PATH_API = os.getenv("API_KEY")
 
 
-def currency_to_rubs(operations: list[dict]) -> float | str:
+def currency_to_rubs(operations: list[dict]) -> float | str:  # type: ignore[return]
     """Функция принимает на вход транзакцию и возвращает сумму транзакции (amount) в рублях.
     * Если транзакция была в USD или EUR, происходит обращение к внешнему API для получения
     текущего курса валют и конвертации суммы операции в рубли."""
@@ -28,8 +28,10 @@ def currency_to_rubs(operations: list[dict]) -> float | str:
 
                 response.raise_for_status()
                 result = response.json()
-                converted_amount = round(result.get("result", 0), 2)
+                converted_amount = round(result.get("result", 0), 2)  # noqa: F841
                 time.sleep(3)
+
+                return converted_amount
 
     except requests.exceptions.HTTPError:
         if 500 <= response.status_code < 600:
@@ -39,7 +41,7 @@ def currency_to_rubs(operations: list[dict]) -> float | str:
 
 
 for operation in json_to_list(DATA_PATH):
-    print(currency_to_rubs(operation))
+    print(currency_to_rubs(operation))  # type:ignore
 
 
 operations = json_to_list(path_file=DATA_PATH)
