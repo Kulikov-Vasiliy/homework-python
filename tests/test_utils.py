@@ -11,7 +11,7 @@ DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")
 def test_json_to_list_if_file_not_found_error():
     with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
         side_effect = FileNotFoundError  # noqa: F841
-        result = json_to_list("operations.json")
+        result = json_to_list(path_file=None)
         assert result == []
 
 
@@ -25,14 +25,14 @@ def test_json_to_list_if_json_decode_error():
 def test_json_to_list_if_parsed_operations_is_none():
     with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
         mock_open(read_data=None)
-        result = json_to_list("operations.json")
+        result = json_to_list("[]")
         assert result == []
 
 
 def test_json_to_list_if_parsed_operations_is_not_list():
     with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
         mock_open(read_data='{"key": "value"}')
-        result = json_to_list("operations.json")
+        result = json_to_list("operations")
         assert result == []
 
 

@@ -142,7 +142,7 @@ def expected_result_rub():
 
 
 @pytest.fixture
-def operations():
+def operations_filled():
     return [
         {
             "id": 441945886,
@@ -1024,7 +1024,6 @@ def operations():
             "from": "Счет 59956820797131895975",
             "to": "Счет 43475624104328495820",
         },
-        {},
         {
             "id": 509552992,
             "state": "EXECUTED",

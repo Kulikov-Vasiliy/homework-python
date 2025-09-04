@@ -1,4 +1,4 @@
-def filter_by_currency(transactions: list[dict], code="USD") -> iter:  # type: ignore
+def filter_by_currency(transactions: list[dict], code="USD") -> iter:  # type:ignore
     """Функция, принимающая на вход список словарей(транзакции)
     и возвращает итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной (например, USD)."""
@@ -33,6 +33,6 @@ def card_number_generator(start, stop: int, m=9999999999999999) -> iter:  # type
             less_m = 16 - len(str(gen_num))
             if less_m <= 16:
                 card_num = ("0" * less_m) + str(gen_num)
-                yield card_num[:4] + " " + card_num[4:8] + (" " "") + card_num[
+                yield card_num[:4] + " " + card_num[4:8] + " " + card_num[
                     8:12
                 ] + " " + card_num[12:]
