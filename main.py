@@ -1,6 +1,6 @@
 import os
 
-from src import masks, processing, utils, widget
+from src import masks, processing, widget
 from src.decorators import my_function
 from src.external_api import currency_to_rubs
 from src.generators import (
@@ -151,6 +151,5 @@ if __name__ == "__main__":
     for card_number in card_number_generator(1, 3):
         print(card_number)
     my_function(1.1, 2.1)
-    print(utils.json_to_list("operations.jon"))
     for operation in json_to_list(operations_filled):
         print(currency_to_rubs(operation))
