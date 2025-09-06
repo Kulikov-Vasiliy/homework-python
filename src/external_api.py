@@ -2,10 +2,8 @@ import os
 import time
 
 import requests
-
 # noinspection PyUnresolvedReferences
 from dotenv import load_dotenv
-
 
 load_dotenv()
 DATA_PATH_API = os.getenv("API_KEY")
@@ -36,7 +34,7 @@ def currency_to_rubs(operation: dict) -> float | str:  # type: ignore[return]
         return amount
 
     except requests.exceptions.HTTPError:
-        if 500 <= response.status_code < 600:
+        if 500 <= response.status_code < 600:  # type: ignore[union-attr]
             return "Server Error"
-        elif 400 <= response.status_code < 500:
-            return f"Client Error: {response.status_code}"
+        elif 400 <= response.status_code < 500:  # type: ignore[union-attr]
+            return f"Client Error: {response.status_code}"  # type: ignore[union-attr]

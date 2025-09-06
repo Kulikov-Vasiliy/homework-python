@@ -22,7 +22,9 @@ def log(filename=None):
                 return result
 
             except Exception as e:
-                message_er = f"{func.__name__} error: {str(e)}. Inputs: {args}, {kwargs}"
+                message_er = (
+                    f"{func.__name__} error: {str(e)}. Inputs: {args}, {kwargs}"
+                )
                 if filename:
                     with open(DATA_PATH, "a", encoding="utf-8") as file:
                         file.write(message_er + "\n")

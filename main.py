@@ -1,12 +1,9 @@
 from src import masks, processing, widget
 from src.decorators import my_function
 from src.external_api import currency_to_rubs
-from src.generators import (
-    card_number_generator,
-    filter_by_currency,
-    transaction_descriptions,
-)
-from src.utils import json_to_list, DATA_PATH
+from src.generators import (card_number_generator, filter_by_currency,
+                            transaction_descriptions)
+from src.utils import DATA_PATH, json_to_list
 
 if __name__ == "__main__":
     print(masks.get_mask_card_number("7000792289606361"))
@@ -142,7 +139,7 @@ if __name__ == "__main__":
     descriptions = transaction_descriptions(transactions)
     for _ in range(5):
         print(next(descriptions))
-    for card_number in card_number_generator(1, 3):
+    for card_number in card_number_generator(1, 3):  # type: ignore[attr-defined]
         print(card_number)
     my_function(1.1, 2.1)
     for operation in json_to_list(path_file=DATA_PATH):
