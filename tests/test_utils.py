@@ -8,36 +8,36 @@ BASE_DIR = os.path.dirname(__file__)
 DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")
 
 
-def test_json_to_list_if_file_not_found_error():
+def test_json_to_list_if_file_not_found_error(path_file=DATA_PATH):
     with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
         side_effect = FileNotFoundError  # noqa: F841
-        result = json_to_list(path_file=None)
+        result = json_to_list(path_file)
         assert result == []
 
 
-def test_json_to_list_if_json_decode_error():
+def test_json_to_list_if_json_decode_error(path_file=DATA_PATH):
     with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
         side_effect = json.JSONDecodeError  # noqa: F841
-        result = json_to_list("operations.json")
+        result = json_to_list(path_file)
         assert result == []
 
 
-def test_json_to_list_if_parsed_operations_is_none():
+def test_json_to_list_if_parsed_operations_is_none(path_file=DATA_PATH):
     with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
         mock_open(read_data=None)
-        result = json_to_list("[]")
+        result = json_to_list(path_file)
         assert result == []
 
 
-def test_json_to_list_if_parsed_operations_is_not_list():
+def test_json_to_list_if_parsed_operations_is_not_list(path_file=DATA_PATH):
     with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
         mock_open(read_data='{"key": "value"}')
-        result = json_to_list("operations")
+        result = json_to_list(path_file)
         assert result == []
 
 
-def test_json_to_list_filled_operations():
-    result = json_to_list("operations.json")
+def test_json_to_list_filled_operations(path_file=DATA_PATH):
+    result = json_to_list(path_file)
     assert result == [
         {
             "id": 441945886,

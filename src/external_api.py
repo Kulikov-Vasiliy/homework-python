@@ -15,8 +15,9 @@ def currency_to_rubs(operation: dict) -> float | str:  # type: ignore[return]
     """Функция принимает на вход транзакцию и возвращает сумму транзакции (amount) в рублях.
     * Если транзакция была в USD или EUR, происходит обращение к внешнему API для получения
     текущего курса валют и конвертации суммы операции в рубли."""
-    global response
+    response = None
     try:
+
         amount = operation["operationAmount"]["amount"]
         currency_code = operation["operationAmount"]["currency"]["code"]
         if currency_code != "RUB":

@@ -16,14 +16,14 @@ DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")
 operations_filled = []
 
 
-def json_to_list(path_file: str):
+def json_to_list(path_file: str) -> list:
     """Функция принимает на вход путь до JSON-файла и возвращает список
     словарей с данными о финансовых транзакциях.
     * Если файл пустой, содержит не список или не найден,
     функция возвращает пустой список."""
     try:
 
-        with open(DATA_PATH, "r", encoding="utf-8") as f:
+        with open(path_file, "r", encoding="utf-8") as f:
             parsed_operations = json.load(f)
 
             if parsed_operations is None or type(parsed_operations) is not list:

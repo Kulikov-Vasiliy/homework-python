@@ -1,5 +1,3 @@
-import os
-
 from src import masks, processing, widget
 from src.decorators import my_function
 from src.external_api import currency_to_rubs
@@ -8,11 +6,7 @@ from src.generators import (
     filter_by_currency,
     transaction_descriptions,
 )
-from src.utils import json_to_list, operations_filled
-
-BASE_DIR = os.path.dirname(__file__)
-DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")
-DATA_PATH_CONVERTED = os.path.join(BASE_DIR, "..", "data", "converted.json")
+from src.utils import json_to_list, DATA_PATH
 
 if __name__ == "__main__":
     print(masks.get_mask_card_number("7000792289606361"))
@@ -151,5 +145,5 @@ if __name__ == "__main__":
     for card_number in card_number_generator(1, 3):
         print(card_number)
     my_function(1.1, 2.1)
-    for operation in json_to_list(operations_filled):
+    for operation in json_to_list(path_file=DATA_PATH):
         print(currency_to_rubs(operation))
