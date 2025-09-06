@@ -57,7 +57,7 @@ def test_currency_to_rubs_api_success(mock_get, operations_filled):
 def test_currency_to_rubs_api_if_rub(operations_filled):
     for operation in operations_filled:
         currency_code = operation["operationAmount"]["currency"]["code"]
-        amount = operation["operationAmount"]["amount"]
+        amount = float(operation["operationAmount"]["amount"])
         if currency_code == "RUB":
             result = currency_to_rubs(operation)
             assert result == amount

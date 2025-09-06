@@ -18,6 +18,7 @@ def currency_to_rubs(operation: dict) -> float | str:  # type: ignore[return]
 
         amount = operation["operationAmount"]["amount"]
         currency_code = operation["operationAmount"]["currency"]["code"]
+        rounded_amount = round(float(amount), 2)
         if currency_code != "RUB":
 
             payload = {"amount": float(amount), "from": currency_code, "to": "RUB"}
@@ -27,11 +28,11 @@ def currency_to_rubs(operation: dict) -> float | str:  # type: ignore[return]
 
             response.raise_for_status()
             result = response.json()
-            converted_amount = result.get("result", 0)
+            converted_amount = round(float(result.get("result", 0)), 2)
             time.sleep(3)
 
             return converted_amount
-        return amount
+        return rounded_amount
 
     except requests.exceptions.HTTPError:
         if 500 <= response.status_code < 600:  # type: ignore[union-attr]
