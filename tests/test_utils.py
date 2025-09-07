@@ -37,6 +37,7 @@ def test_json_to_list_if_parsed_operations_is_not_list(path_file=DATA_PATH):
 
 
 def test_json_to_list_filled_operations(path_file=DATA_PATH):
+    # with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
     result = json_to_list(path_file)
     assert result == [
         {
