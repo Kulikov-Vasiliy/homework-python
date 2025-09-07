@@ -1,4 +1,3 @@
-import tempfile
 import os
 from unittest.mock import mock_open, patch
 
@@ -15,6 +14,22 @@ def my_function_sum_args(x, y):
     return x + y
 
 
+def test_my_function_file_output_a_float():
+    with patch("builtins.open", mock_open()) as mocked_file:
+        result = my_function_sum_args(1.1, 2.1)
+        assert result == 3.2
+        mocked_file.assert_not_called()
+        # Проверка, что запись не произошла без filename
+
+
+def test_my_function_file_output_a_double_float():
+    with patch("builtins.open", mock_open()) as mocked_file:
+        result = my_function_sum_args(1.1, 1.1)
+        assert result == 2.2
+        mocked_file.assert_not_called()
+        # Проверка, что запись не произошла без filename
+
+
 def test_my_function_file_output_a():
     with patch("builtins.open", mock_open()) as mocked_file:
         result = my_function_sum_args(2, 3)
@@ -23,15 +38,39 @@ def test_my_function_file_output_a():
         # Проверка, что запись не произошла без filename
 
 
-@log(filename=None)
-def my_function_sum_kwargs(x, y):
-    return x + y
+def test_my_function_file_output_a_double():
+    with patch("builtins.open", mock_open()) as mocked_file:
+        result = my_function_sum_args(2, 2)
+        assert result == 4
+        mocked_file.assert_not_called()
+        # Проверка, что запись не произошла без filename
 
 
 def test_my_function_file_output_k():
     with patch("builtins.open", mock_open()) as mocked_file:
         result = my_function_sum_args(x=2, y=3)
         assert result == 5
+        mocked_file.assert_not_called()
+
+
+def test_my_function_file_output_k_float():
+    with patch("builtins.open", mock_open()) as mocked_file:
+        result = my_function_sum_args(x=2.1, y=3.1)
+        assert result == 5.2
+        mocked_file.assert_not_called()
+
+
+def test_my_function_file_output_k_double():
+    with patch("builtins.open", mock_open()) as mocked_file:
+        result = my_function_sum_args(x=2, y=2)
+        assert result == 4
+        mocked_file.assert_not_called()
+
+
+def test_my_function_file_output_k_double_float():
+    with patch("builtins.open", mock_open()) as mocked_file:
+        result = my_function_sum_args(x=2.1, y=2.1)
+        assert result == 4.2
         mocked_file.assert_not_called()
 
 
@@ -44,6 +83,19 @@ def test_my_function_args_err(capsys):
                 "my_function error: can only concatenate"
                 " str (not 'int') to str. Inputs: ('1', 2), {}"
             )
+            mocked_file.assert_not_called()
+
+
+def test_my_function_args_err_float_str(capsys):
+    with patch("builtins.open", mock_open()) as mocked_file:
+        with pytest.raises(TypeError):
+            my_function("1", 2.1)
+            captured = capsys.readouterr()
+            assert captured.out == (
+                "my_function error: can only concatenate"
+                " str (not 'float') to str. Inputs: ('1', 2.1), {}"
+            )
+            mocked_file.assert_not_called()
 
 
 def test_my_function_kwargs_err(capsys):
@@ -55,6 +107,19 @@ def test_my_function_kwargs_err(capsys):
                 "my_function error: unsupported operand"
                 " type(s) for +: 'int' and 'str'. Inputs: (3,), {'y': '5'}"
             )
+            mocked_file.assert_not_called()
+
+
+def test_my_function_kwargs_err_float(capsys):
+    with patch("builtins.open", mock_open()) as mocked_file:
+        with pytest.raises(TypeError):
+            my_function(3.1, y="5")
+            captured = capsys.readouterr()
+            assert captured.out == (
+                "my_function error: unsupported operand"
+                " type(s) for +: 'float' and 'str'. Inputs: (3.1,), {'y': '5'}"
+            )
+            mocked_file.assert_not_called()
 
 
 @pytest.mark.parametrize(
@@ -62,7 +127,7 @@ def test_my_function_kwargs_err(capsys):
     [
         (1, 4, 5),
         ("1", "4", "14"),
-        (1.0, 4.1, 5.1),
+        (1, 4.1, 5.1),
         ("x=1", "y=4", "x=1y=4"),
         ("1", "y=2", "1y=2"),
         ({"x": 1, "y": 4}, None, 5),

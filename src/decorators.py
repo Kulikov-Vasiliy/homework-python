@@ -9,7 +9,7 @@ def log(filename=None):
     а также ее результаты или возникшие ошибки."""
 
     def decorator(func):
-        def wrapper(*args, **kwargs: int or str) -> int or str:
+        def wrapper(*args: int | float | str, **kwargs: int | float | str) -> int | str:
 
             try:
                 result = func(*args, **kwargs)
@@ -22,12 +22,14 @@ def log(filename=None):
                 return result
 
             except Exception as e:
-                message = f"{func.__name__} error: {str(e)}. Inputs: {args}, {kwargs}"
+                message_er = (
+                    f"{func.__name__} error: {str(e)}. Inputs: {args}, {kwargs}"
+                )
                 if filename:
                     with open(DATA_PATH, "a", encoding="utf-8") as file:
-                        file.write(message + "\n")
+                        file.write(message_er + "\n")
                 else:
-                    print(message)
+                    print(message_er)
                 raise
 
         return wrapper
@@ -36,5 +38,5 @@ def log(filename=None):
 
 
 @log(filename="mylog.txt")
-def my_function(x, y: int or str) -> int or str: # type: ignore
-    return x + y
+def my_function(x: int | float | str, y: int | float | str) -> int | float | str:
+    return x + y  # type: ignore[operator]
