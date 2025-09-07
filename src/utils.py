@@ -1,6 +1,5 @@
-import logging
-
 import json
+import logging
 import os
 
 logger = logging.getLogger("utils")
@@ -22,7 +21,6 @@ def json_to_list(path_file: str) -> list:
     * Если файл пустой, содержит не список или не найден,
     функция возвращает пустой список."""
     try:
-
         with open(path_file, "r", encoding="utf-8") as f:
             logger.info(f"Получаем файла из {path_file} и перевод  файла в python")
             parsed_operations = json.load(f)
