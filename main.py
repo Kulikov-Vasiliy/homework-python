@@ -1,8 +1,11 @@
 from src import masks, processing, widget
 from src.decorators import my_function
 from src.external_api import currency_to_rubs
-from src.generators import (card_number_generator, filter_by_currency,
-                            transaction_descriptions)
+from src.generators import (
+    card_number_generator,
+    filter_by_currency,
+    transaction_descriptions,
+)
 from src.utils import DATA_PATH, json_to_list
 
 if __name__ == "__main__":
