@@ -8,8 +8,8 @@ DATA_PATH_CSV = os.path.join(BASE_DIR, "..", "data", "transactions.csv")
 DATA_PATH_XLSX = os.path.join(BASE_DIR, "..", "data", "transactions_excel.xlsx")
 
 
-def read_csv(path_file: str) -> pd.DataFrame | str:  # type: ignore [func-returns-value]
-    """Функция принимает на вход путь до csv-файла и выводит файл без пустых строк"""
+def read_csv(path_file: str) -> pd.DataFrame | str:
+    """Функция принимает на вход путь до csv-файла и выводит DataFrame без пустых строк"""
     try:
         with open(path_file, "r", newline="", encoding="utf-8") as file:
             first_line = file.readline().strip()
@@ -48,7 +48,7 @@ def read_csv(path_file: str) -> pd.DataFrame | str:  # type: ignore [func-return
 
 
 def read_excel(path_file: str) -> pd.DataFrame | str:
-    """Функция принимает на вход путь до xlsx-файла и выводит файл без пустых строк"""
+    """Функция принимает на вход путь до xlsx-файла и выводит DataFrame без пустых строк"""
     try:
         with open(path_file, "r", newline="", encoding="utf-8") as file:  # noqa: F841
             excel_data = pd.read_excel(path_file, sheet_name="Лист 1")
