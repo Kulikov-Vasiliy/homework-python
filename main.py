@@ -6,9 +6,8 @@ from src.generators import (
     filter_by_currency,
     transaction_descriptions,
 )
-from src.tables_reader import read_csv, DATA_PATH_CSV, read_excel, DATA_PATH_XLSX
+from src.tables_reader import DATA_PATH_CSV, DATA_PATH_XLSX, read_csv, read_excel
 from src.utils import DATA_PATH, json_to_list
-
 
 if __name__ == "__main__":
     # print(masks.get_mask_card_number("7000792289606361"))

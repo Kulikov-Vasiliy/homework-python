@@ -26,6 +26,9 @@ exclude = ".*\\.git.*, .*\\__pycache__.*"
 
 [isort]
 max-line_length = 119
+
+
+[tool.isort]
 profile = "black"
 
 [black]

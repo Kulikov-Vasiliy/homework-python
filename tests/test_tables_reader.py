@@ -1,8 +1,8 @@
+import csv
 import os
 from unittest.mock import mock_open, patch
-import csv
-from src.tables_reader import *
 
+from src.tables_reader import *
 
 BASE_DIR = os.path.dirname(__file__)
 DATA_PATH_CSV = os.path.join(BASE_DIR, "..", "data", "transactions.csv")
@@ -10,7 +10,7 @@ DATA_PATH_XLSX = os.path.join(BASE_DIR, "..", "data", "transactions_excel.xlsx")
 
 
 def test_read_csv_if_file_not_found_error(path_file=DATA_PATH_CSV):
-    with patch("builtins.open",mock_open()) as mocked_file: # noqa: F841
+    with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
         # mocked_file.side_effect = FileNotFoundError
         side_effect = FileNotFoundError  # noqa: F841
         result = read_csv(path_file)
@@ -59,14 +59,17 @@ def test_read_csv_if_column(path_file=DATA_PATH_CSV):
 
 
 def test_read_csv_if_newline(path_file=DATA_PATH_CSV):
-        with patch("builtins.open",
-                   mock_open(read_data="id,state,date,amount\n1,EXECUTED,2023-09-05T11:30:32Z")) as mocked_file:  # noqa: F841
-            result = read_csv(path_file)
-            assert result == "должно быть 9 столбцов"
-        mock_open(read_data_newline='.')
+    with patch(
+        "builtins.open",
+        mock_open(read_data="id,state,date,amount\n1,EXECUTED,2023-09-05T11:30:32Z"),
+    ) as mocked_file:  # noqa: F841
         result = read_csv(path_file)
-        # ValueError("должно быть 9 столбцов")
         assert result == "должно быть 9 столбцов"
+    mock_open(read_data_newline=".")
+    result = read_csv(path_file)
+    # ValueError("должно быть 9 столбцов")
+    assert result == "должно быть 9 столбцов"
+
 
 #
 # def test_json_to_list_if_parsed_operations_is_not_list(path_file=DATA_PATH):
