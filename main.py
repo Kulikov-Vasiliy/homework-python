@@ -148,5 +148,6 @@ if __name__ == "__main__":
     # my_function(1.1, 2.1)
     # for operation in json_to_list(path_file=DATA_PATH):
     #     print(currency_to_rubs(operation))
-    print(read_csv(path_file=DATA_PATH_CSV))
+    # for row in read_csv(path_file=DATA_PATH_CSV):
+    #     print(row)
     print(read_excel(path_file=DATA_PATH_XLSX))

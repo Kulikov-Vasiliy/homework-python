@@ -1,13 +1,48 @@
 import csv
 import os
 import pandas as pd
-from unittest.mock import mock_open, patch, Mock
-
-from src.tables_reader import *
+import unittest
+from unittest.mock import mock_open, patch
+import pytest
+from src.tables_reader import read_csv, read_excel
+import tempfile
 
 BASE_DIR = os.path.dirname(__file__)
 DATA_PATH_CSV = os.path.join(BASE_DIR, "..", "data", "transactions.csv")
 DATA_PATH_XLSX = os.path.join(BASE_DIR, "..", "data", "transactions_excel.xlsx")
+
+
+
+
+# если возвращать dataframe
+# def test_valid_csv():
+#     # Создаем временный файл с корректными данными
+#     content = "col1;col2;col3;col4;col5;col6;col7;col8;col9\n1;2;3;4;5;6;7;8;9\n10;11;12;13;14;15;16;17;18\n"
+#     with tempfile.NamedTemporaryFile(mode='w+', newline='', encoding='utf-8', delete=False) as temp_file:
+#         temp_file.write(content)
+#         temp_file.seek(0)
+#         df = read_csv(temp_file.name)
+#
+#     # Проверяем, что результат - это DataFrame и имеет правильные размеры
+#     assert isinstance(df, pd.DataFrame)
+#     assert df.shape == (2, 9)  # 2 строки и 9 столбцов
+#
+#     os.remove(temp_file.name)  # Удаляем временный файл
+
+# пройден
+# def test_read_csv_error_csv():
+#     # Создаем временный файл с некорректными данными
+#     content = "col1;col2;col3;col4;col5;col6;col7;col8;col9\n1;2;3;4;5;6;7;8;9\n1;2;3;4;5;6;7;8\n"
+#     with tempfile.NamedTemporaryFile(mode='w+', newline='', encoding='utf-8', delete=False) as temp_file:
+#         temp_file.write(content)
+#         temp_file.seek(0)
+#         result = read_csv(temp_file.name)
+#
+#     assert isinstance(result, pd.DataFrame)
+#
+#     os.remove(temp_file.name)
+
+
 
 
 
@@ -16,12 +51,6 @@ DATA_PATH_XLSX = os.path.join(BASE_DIR, "..", "data", "transactions_excel.xlsx")
 #     with patch("builtins.open", mock_open()) as mocked_file:  # noqa: F841
 #         mocked_file.side_effect = FileNotFoundError
 #         # side_effect = FileNotFoundError  # noqa: F841
-#         result = read_csv(path_file)
-#         assert result == "Файл не найден"
-
-
-# def test_file_not_found(path_file=DATA_PATH_CSV):
-#     with patch("builtins.open", side_effect=FileNotFoundError):
 #         result = read_csv(path_file)
 #         assert result == "Файл не найден"
 
