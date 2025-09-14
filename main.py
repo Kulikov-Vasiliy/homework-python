@@ -6,7 +6,7 @@ from src.generators import (
     filter_by_currency,
     transaction_descriptions,
 )
-from src.tables_reader import read_csv, DATA_PATH_CSV
+from src.tables_reader import read_csv, DATA_PATH_CSV, read_excel, DATA_PATH_XLSX
 from src.utils import DATA_PATH, json_to_list
 
 
@@ -150,4 +150,4 @@ if __name__ == "__main__":
     # for operation in json_to_list(path_file=DATA_PATH):
     #     print(currency_to_rubs(operation))
     print(read_csv(path_file=DATA_PATH_CSV))
-    # for row in read_excel(path_file=DATA_PATH_XLSX):
+    print(read_excel(path_file=DATA_PATH_XLSX))
