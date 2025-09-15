@@ -32,27 +32,25 @@ def read_csv(path_file: str) -> list | str:
                 row for row in parsed if any(field.strip() for field in row.values())
             ]
 
+            return filtered_rows
+
     except FileNotFoundError:
         return "Файл не найден"
     except csv.Error as er:
         return f"Произошла ошибка {er}"
-
-    finally:
-        return filtered_rows
 
 
 def read_excel(path_file: str) -> list | str:
     """Функция принимает на вход путь до xlsx-файла и выводит DataFrame без пустых строк"""
     try:
-        with open(path_file, "r", newline="", encoding="utf-8") as file:  # noqa: F841
+        with open(path_file, newline="", encoding="utf-8") as file:  # noqa: F841
             excel_data = pd.read_excel(path_file, sheet_name="Лист 1")
             excel_data_clear = excel_data.dropna(how="all")
             excel_list = excel_data_clear.to_dict(orient='records')
+
+            return excel_list
 
     except FileNotFoundError:
         return "Файл не найден"
     except csv.Error as er:
         return f"Произошла ошибка {er}"
-
-    finally:
-        return excel_list
