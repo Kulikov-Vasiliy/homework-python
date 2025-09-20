@@ -22,7 +22,9 @@ def read_csv(path_file: str) -> list | str:
             # Проверка на делимитер во всех строках
             for line in lines:
                 if delimiter not in line:
-                    raise ValueError(f"Неверный делимитер в строке: '{line.strip()}'. Ожидался: {delimiter}")
+                    raise ValueError(
+                        f"Неверный делимитер в строке: '{line.strip()}'. Ожидался: {delimiter}"
+                    )
 
             # Проверка на количество столбцов во всех строках
             for line in lines:
@@ -53,7 +55,7 @@ def read_excel(path_file: str) -> list | str:
 
         excel_data = pd.read_excel(path_file, sheet_name="Лист 1")
         excel_data_clear = excel_data.dropna(how="all")
-        excel_list = excel_data_clear.to_dict(orient='records')
+        excel_list = excel_data_clear.to_dict(orient="records")
 
         return excel_list
 
