@@ -3,6 +3,7 @@ import re
 import os
 
 import logging
+from collections import Counter, defaultdict
 
 from src.utils import operations_filled
 
@@ -42,7 +43,18 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
     и возвращает словарь, в котором ключи — это названия категорий,
     а значения — это количество операций в каждой категории.
     (Категории операций хранятся в поле description.)"""
-    pass
+    try:
+        sorted_categories = defaultdict(list)
+        for operation in data:
+            for categories in operation:
+                desc = operation.get("description")
+                if categories in desc:
+                    value = Counter(desc)
+                    sorted_categories[desc].append(value)
+        return sorted_categories
+
+    except Exception as er:
+        print(er)
 
 
 if __name__ == "__main__":
