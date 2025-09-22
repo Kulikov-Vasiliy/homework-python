@@ -2,4 +2,3 @@ my_function ok. Result: 12
 my_function ok. Result: 3
 my_function ok. Result: 3.2
 my_function ok. Result: 3.2
-my_function ok. Result: 3.2
