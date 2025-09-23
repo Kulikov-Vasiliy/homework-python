@@ -1,13 +1,7 @@
 import json
-import logging
 import os
 
-logger = logging.getLogger("utils")
-logger.setLevel(logging.INFO)
-file_handler = logging.FileHandler("logs/utils.log", "w", encoding="utf-8")
-file_formatter = logging.Formatter("%(asctime)s %(levelname)s: %(message)s")
-file_handler.setFormatter(file_formatter)
-logger.addHandler(file_handler)
+from src.logger import logger
 
 BASE_DIR = os.path.dirname(__file__)
 DATA_PATH = os.path.join(BASE_DIR, "..", "data", "operations.json")

@@ -2,7 +2,8 @@ import re
 
 import os
 
-import logging
+from src.logger import logger
+
 from collections import Counter, defaultdict
 
 from src.utils import operations_filled
@@ -14,8 +15,8 @@ DATA_PATH_JSON = os.path.join(BASE_DIR, "..", "data", "operations.json")
 DATA_PATH_CSV = os.path.join(BASE_DIR, "..", "data", "transactions.csv")
 DATA_PATH_XLSX = os.path.join(BASE_DIR, "..", "data", "transactions_excel.xlsx")
 
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.NullHandler())
+
+
 
 
 def process_bank_search(data:list[dict], search:str)->list[dict]:
@@ -45,6 +46,7 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
     (Категории операций хранятся в поле description.)"""
     try:
         sorted_categories = defaultdict(list)
+
         for operation in data:
             for categories in operation:
                 desc = operation.get("description")
@@ -58,6 +60,9 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
 
 
 if __name__ == "__main__":
-    print(process_bank_search(data=operations_filled, search=input().lower()),logging.NullHandler())
-    print(process_bank_search(data=read_csv(path_file=DATA_PATH_CSV), search=input().lower()))
-    print(process_bank_search(data=read_excel(path_file=DATA_PATH_XLSX), search=input().lower()))
+    print(process_bank_search(data=operations_filled, search="вклад".lower()),logging.NullHandler())
+    print(process_bank_search(data=read_csv(path_file=DATA_PATH_CSV), search="вклад".lower()))
+    print(process_bank_search(data=read_excel(path_file=DATA_PATH_XLSX), search="вклад".lower()))
+    print(process_bank_operations(data=operations_filled, categories=["открытие вклада", "Перевод организации"]))
+    print(process_bank_operations(data=read_csv(path_file=DATA_PATH_CSV), categories=["открытие вклада", "Перевод организации"]))
+    print(process_bank_operations(data=read_excel(path_file=DATA_PATH_XLSX), categories=["открытие вклада", "Перевод организации"]))
