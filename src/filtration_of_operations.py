@@ -20,7 +20,7 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
         for operation in data:
             for search in operation:
                 desc = operation["description"]
-                if finding  in desc:
+                if finding  in desc.lower():
                     result.append(operation)
 
         return result
