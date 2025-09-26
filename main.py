@@ -1,5 +1,3 @@
-from gc import freeze
-
 from src import masks, processing, widget
 from src.decorators import my_function
 from src.external_api import currency_to_rubs
@@ -13,9 +11,7 @@ from src.tables_reader import DATA_PATH_CSV, DATA_PATH_XLSX, read_csv, read_exce
 from src.utils import DATA_PATH, json_to_list, operations_filled
 
 
-"""Напишите функцию main в модуле main, которая отвечает за основную логику проекта и связывает
- функциональности между собой.
-Ожидаемое поведение программы должно быть следующим:
+"""Ожидаемое поведение программы должно быть следующим:
 
 Программа: Распечатываю итоговый список транзакций...
 
@@ -38,7 +34,6 @@ Visa Platinum 7492 65** **** 7202 -> Счет **0034
 Программа: Не найдено ни одной транзакции, подходящей под ваши
 условия фильтрации"""
 
-"""Функция отвечает за основную логику проекта и связывает функциональности между собой."""
 
 def main_choice_file():
     """Выбор файла для работы"""
@@ -69,7 +64,7 @@ def main_choice_file():
     return data
 
 
-def main_choose_status():
+def main_choose_status(data):
     """Пользователь выбирает статус интересующих его операций"""
     print("Введите статус, по которому необходимо выполнить фильтрацию.")
     state = None
@@ -84,50 +79,114 @@ def main_choose_status():
         else:
             print(f"Статус операции '{user_choice}' недоступен")
 
-    return state
+    state_filt = process_bank_search(data, search=state)
+    return  state_filt
 
 
-def main_extra_choices(data):
+def main_extra_choices(state_filt):
     """После фильтрации программа уточняет выборку операций, необходимых пользователю,
     и выводит в консоль операции, соответствующие выборке пользователя"""
+    choice_asc = None
+    choice_des = None
+    choice_ruas = None
+    choice_rudes = None
+    result = state_filt
     print("Отсортировать операции по дате?")
-    user_choice = input("Да/Нет ").title()
-    if user_choice == "Да":
+    user_choice_1 = input("Да/Нет ").title()
+    if user_choice_1 == "Да":
         print("Отсортировать по возрастанию или по убыванию?")
-        user_choice = input("по возрастанию/по убыванию ").lower()
-        if user_choice == "по возрастанию" or user_choice == "возрастанию":
-            processing.sort_by_date(data)
-        elif user_choice == "по убыванию"or user_choice == "убыванию":
-            processing.sort_by_date(data, ascending=True)
+        user_choice_2 = input("по возрастанию/по убыванию ").lower()
+        if user_choice_2 == "по возрастанию" or user_choice_2 == "возрастанию":
+            choice_asc = processing.sort_by_date(state_filt)
+        elif user_choice_2 == "по убыванию"or user_choice_2 == "убыванию":
+            choice_des = processing.sort_by_date(state_filt, ascending=True)
 
     print("Выводить только рублевые транзакции?")
-    user_choice = input("Да/Нет ").title()
-    if user_choice == "Да":
-        filter_by_currency(transactions=data, code="RUB")
-    elif user_choice == "Нет":
-        filter_by_currency(transactions=data)
+    user_choice_3 = input("Да/Нет ").title()
+    if user_choice_3 == "Да" and user_choice_1 == "Да" and "воз" in user_choice_2:
+        choice_ruas = filter_by_currency(transactions=choice_asc, code="RUB")
+    elif user_choice_3 == "Да" and user_choice_1 == "Да" and "убыв" in user_choice_2:
+        choice_rudes = filter_by_currency(transactions=choice_des, code="RUB")
+    elif user_choice_3 == "Да" and user_choice_1 != "Да":
+        choice_ru =  filter_by_currency(transactions=state_filt)
 
     print("Отфильтровать список транзакций по определенному слову в описании?")
     categories = []
-    user_choice = input("Да/Нет ").title()
-    if user_choice == "Да":
+    user_choice_4 = input("Да/Нет ").title()
+    if user_choice_4 == "Да" and user_choice_3 == "Да" and user_choice_1 == "Да" and "воз" in user_choice_2:
         print("Введите ключевое(ые) слово(а) для поиска")
-        user_choice = input("Вводить через ',' если несколько ключевых слов ").lower()
-        if  ", " in user_choice:
-            user_choice.split(", ")
-            categories.append(user_choice)
-            print(process_bank_operations(data, categories))
-        elif  "," in user_choice:
-            user_choice.split(",")
-            categories.append(user_choice)
-            print(process_bank_operations(data, categories))
-        elif "," and ", " not in user_choice:
-            print(process_bank_search(data,search=user_choice))
+        user_words = input("Вводить через ',' если несколько ключевых слов ").lower()
+        if  ", " in user_words:
+            user_words.split(", ")
+            categories.append(user_words)
+            result = process_bank_operations(choice_ruas, categories)
+        elif  "," in user_words:
+            user_words.split(",")
+            categories.append(user_words)
+            result = process_bank_operations(choice_ruas, categories)
+        elif "," and ", " not in user_words:
+            result = process_bank_search(choice_ruas,search=user_words)
+
+    elif user_choice_4 == "Да" and user_choice_3 == "Да" and user_choice_1 == "Да" and "убыв" in user_choice_2:
+        print("Введите ключевое(ые) слово(а) для поиска")
+        user_words = input("Вводить через ',' если несколько ключевых слов ").lower()
+        if  ", " in user_words:
+            user_words.split(", ")
+            categories.append(user_words)
+            result = process_bank_operations(choice_rudes, categories)
+        elif  "," in user_words:
+            user_words.split(",")
+            categories.append(user_words)
+            result = process_bank_operations(choice_rudes, categories)
+        elif "," and ", " not in user_words:
+            result = process_bank_search(choice_rudes,search=user_words)
+
+    elif user_choice_4 == "Да" and user_choice_3 == "Да" and user_choice_1 != "Да":
+        print("Введите ключевое(ые) слово(а) для поиска")
+        user_words = input("Вводить через ',' если несколько ключевых слов ").lower()
+        if  ", " in user_words:
+            user_words.split(", ")
+            categories.append(user_words)
+            result = process_bank_operations(choice_ru, categories)
+        elif  "," in user_words and user_choice_3 == "Да" and user_choice_1 != "Да":
+            user_words.split(",")
+            categories.append(user_words)
+            result = process_bank_operations(choice_ru, categories)
+        elif "," and ", " not in user_words:
+            result = process_bank_search(choice_ru,search=user_words)
+
+    elif user_choice_4 == "Да" and user_choice_3 != "Да" and user_choice_1 != "Да":
+        print("Введите ключевое(ые) слово(а) для поиска")
+        user_words = input("Вводить через ',' если несколько ключевых слов ").lower()
+        if ", " in user_words:
+            user_words.split(", ")
+            categories.append(user_words)
+            result = process_bank_operations(state_filt, categories)
+        elif "," in user_words:
+            user_words.split(",")
+            categories.append(user_words)
+            result = process_bank_operations(state_filt, categories)
+        elif "," and ", " not in user_words:
+            result = process_bank_search(state_filt,search=user_words)
+
+    return result
+
+
+def main(result):
+    """Функция отвечает за основную логику проекта и связывает функциональности между собой."""
+
+    print("Распечатываю итоговый список транзакций...")
+    print(widget.mask_account_card(result))
+
+
+
+
 
 
 data = main_choice_file()
-state = main_choose_status()
-extra = main_extra_choices(data)
+state_filt = main_choose_status(data)
+result = main_extra_choices(state_filt)
+main(result)
 
 # if __name__ == "__main__":
 #     print(main)
