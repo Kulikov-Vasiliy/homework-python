@@ -1,7 +1,5 @@
-import re
-
 import os
-
+import re
 from collections import Counter
 
 BASE_DIR = os.path.dirname(__file__)
@@ -10,7 +8,7 @@ DATA_PATH_CSV = os.path.join(BASE_DIR, "..", "data", "transactions.csv")
 DATA_PATH_XLSX = os.path.join(BASE_DIR, "..", "data", "transactions_excel.xlsx")
 
 
-def process_bank_search(data:list[dict], search:str)->list[dict]:
+def process_bank_search(data: list[dict], search: str) -> list[dict]:  # type: ignore[return]
     """Функция принимает список словарей с данными о банковских операциях и строку поиска,
     и возвращает список словарей, у которых в описании есть данная строка."""
     try:
@@ -20,7 +18,7 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
         for operation in data:
             for search in operation:
                 desc = operation["description"]
-                if finding  in desc.lower():
+                if finding in desc.lower():
                     result.append(operation)
 
         return result
@@ -29,13 +27,13 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
         print(er)
 
 
-def process_bank_operations(data:list[dict], categories:list)->dict:
+def process_bank_operations(data: list[dict], categories: list) -> dict:  # type: ignore[return]
     """Функция принимает список словарей с данными о банковских операциях и список категорий операций,
     и возвращает словарь, в котором ключи — это названия категорий,
     а значения — это количество операций в каждой категории.
     (Категории операций хранятся в поле description.)"""
     try:
-        counts = Counter()
+        counts = Counter()  # type: ignore[var-annotated]
         for operation in data:
             desc = operation.get("description", "")
             for category in categories:

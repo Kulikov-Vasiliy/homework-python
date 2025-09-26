@@ -1,5 +1,6 @@
 from src.logger import logger
 
+
 def get_mask_card_number(card_number: str) -> str:
     """Функция маскировки номера банковской карты"""
     if not card_number.isdigit():

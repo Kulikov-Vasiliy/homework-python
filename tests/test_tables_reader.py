@@ -138,7 +138,8 @@ def test_read_excel_if_file_not_found_error(path_file=DATA_PATH_XLSX):
 
 @patch("pandas.read_excel", side_effect=ValueError("Ошибка чтения"))
 def test_read_excel_decode_error(
-    mock_read_excel, path_file=DATA_PATH_XLSX):  # noqa: F841
+    mock_read_excel, path_file=DATA_PATH_XLSX
+):  # noqa: F841
     result = read_excel(path_file)
     assert result == "Произошла ошибка Ошибка чтения"
 
@@ -178,6 +179,6 @@ def test_read_excel_if_none(mock_read_excel, path_file=DATA_PATH_XLSX):  # noqa:
         ]
     ),
 )
-def test_read_excel_success(mock_read_excel, expected_reader_xl): # noqa: F841
+def test_read_excel_success(mock_read_excel, expected_reader_xl):  # noqa: F841
     result = read_excel("mocked_file.xlsx")
     assert result == expected_reader_xl
