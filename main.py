@@ -1,3 +1,5 @@
+import numpy as np
+
 from src import masks, processing, widget
 from src.decorators import my_function
 from src.external_api import currency_to_rubs
@@ -211,6 +213,7 @@ def main_choose_status(data):
             print(f"Статус операции '{user_choice}' недоступен")
 
     state_filt = process_bank_search(data, search=state)
+
     return  state_filt
 
 
@@ -221,7 +224,8 @@ def main_extra_choices(state_filt):
     choice_des = None
     choice_ruas = None
     choice_rudes = None
-    result = None
+    result = state_filt
+
     print("Отсортировать операции по дате?")
     user_choice_1 = input("Да/Нет ").title()
     if user_choice_1 == "Да":
@@ -283,8 +287,6 @@ def main_extra_choices(state_filt):
             result = process_bank_operations(state_filt, categories)
         elif not keywords:
             result = process_bank_search(state_filt,search=user_words)
-    else:
-        result = state_filt
 
     return result
 
@@ -292,14 +294,14 @@ def main_extra_choices(state_filt):
 def main(result):
     """Функция отвечает за основную логику проекта и связывает функциональности между собой."""
     print("Распечатываю итоговый список транзакций...")
-    if result is not None:
-        info_from = None
-        info_to = None
-        info_date= None
-        info_desc = None
-        info_am = None
-        info_name = None
+    info_from = np.nan
+    info_to = np.nan
+    info_date = np.nan
+    info_desc = np.nan
+    info_am = np.nan
+    info_name = np.nan
 
+    if result is not None:
         total_operations = len(result)
         for info in result:
             if "from" in info:
@@ -315,16 +317,16 @@ def main(result):
             if "name" in info:
                 info_name = info["operationAmount"]["currency"]["name"]
 
-        if info_from is None:
-            print(f"""Всего банковских операций в выборке: {total_operations}
-{info_date} {info_desc}
-{info_to}
-Сумма: {info_am} {info_name}""")
-
-        elif info_from is not None:
+        if info_from is not None:
             print(f"""Всего банковских операций в выборке: {total_operations}
 {info_date} {info_desc}
 {info_from} -> {info_to}
+Сумма: {info_am} {info_name}""")
+
+        elif info_from is None:
+            print(f"""Всего банковских операций в выборке: {total_operations}
+{info_date} {info_desc}
+{info_to}
 Сумма: {info_am} {info_name}""")
 
         else:
@@ -333,5 +335,5 @@ def main(result):
 
 data = main_choice_file()
 state_filt = main_choose_status(data)
-result = main_extra_choices(state_filt)
-main(result)
+end = main_extra_choices(state_filt)
+main(end)
