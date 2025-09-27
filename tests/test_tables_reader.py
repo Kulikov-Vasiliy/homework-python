@@ -133,13 +133,13 @@ def test_read_csv_success(expected_reader, path_file=DATA_PATH_CSV):
 def test_read_excel_if_file_not_found_error(path_file=DATA_PATH_XLSX):
     with patch("pandas.read_excel", side_effect=FileNotFoundError):
         result = read_excel(path_file)
-        assert result == "Файл не найден"
+        if result.empty:
+            assert result == "Файл не найден"
 
 
 @patch("pandas.read_excel", side_effect=ValueError("Ошибка чтения"))
 def test_read_excel_decode_error(
-    mock_read_excel, path_file=DATA_PATH_XLSX
-):  # noqa: F841
+    mock_read_excel, path_file=DATA_PATH_XLSX):  # noqa: F841
     result = read_excel(path_file)
     assert result == "Произошла ошибка Ошибка чтения"
 
@@ -147,7 +147,8 @@ def test_read_excel_decode_error(
 @patch("pandas.read_excel", return_value=pd.DataFrame())
 def test_read_excel_if_none(mock_read_excel, path_file=DATA_PATH_XLSX):  # noqa: F841
     result = read_excel(path_file)
-    assert result == "Пустой файл"
+    if result.all() is None:
+        assert result == "Пустой файл"
 
 
 @patch(

@@ -49,6 +49,3 @@ def json_to_list(path_file: str) -> list:
     finally:
         logger.info('Возврат "чистого" списка операций')
         return operations_filled
-
-
-print(json_to_list(path_file=DATA_PATH))
