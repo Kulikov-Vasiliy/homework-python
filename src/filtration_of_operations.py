@@ -2,6 +2,7 @@ import os
 import re
 from collections import Counter
 
+
 BASE_DIR = os.path.dirname(__file__)
 DATA_PATH_JSON = os.path.join(BASE_DIR, "..", "data", "operations.json")
 DATA_PATH_CSV = os.path.join(BASE_DIR, "..", "data", "transactions.csv")
@@ -12,14 +13,14 @@ def process_bank_search(data: list[dict], search: str) -> list[dict]:  # type: i
     """Функция принимает список словарей с данными о банковских операциях и строку поиска,
     и возвращает список словарей, у которых в описании есть данная строка."""
     try:
-        finding = re.escape(search)
+        sample = re.compile(pattern=search, flags=re.IGNORECASE)
         result = []
 
         for operation in data:
-            for search in operation:
-                desc = operation["description"]
-                if finding in desc.lower():
-                    result.append(operation)
+            desc = operation.get("description").lower()
+            finding = re.findall(sample, string=desc)
+            if finding:  # Проверяем, не пустой ли список
+                result.append(operation)
 
         return result
 
