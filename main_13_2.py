@@ -1,17 +1,19 @@
+from pprint import pprint
+
 import numpy as np
 
 from src import processing, widget
-from src.filtration_of_operations import process_bank_search, process_bank_operations
+from src.filtration_of_operations import process_bank_search, process_bank_operations, DATA_PATH_JSON
 from src.generators import filter_by_currency
 from src.tables_reader import DATA_PATH_CSV, read_csv, read_excel, DATA_PATH_XLSX
-from src.utils import operations_filled
+from src.utils import json_to_list, DATA_PATH
 
 
 def main_choice_file():
     """Выбор файла для работы"""
     print("Привет! Добро пожаловать в программу работы с банковскими транзакциями.")
-    data = None
     while True:
+        data = None
         print(
             """Выберите необходимый пункт меню:
 1. Получить информацию о транзакциях из JSON-файла
@@ -21,16 +23,16 @@ def main_choice_file():
 
         user_choice = input("Введите что Вы выбрали ").strip()
         if user_choice == "1":
+            data = json_to_list(path_file=DATA_PATH)
             print("Для обработки выбран JSON-файл")
-            data = operations_filled
             break
         elif user_choice == "2":
-            print("Для обработки выбран CSV-файл")
             data = read_csv(path_file=DATA_PATH_CSV)
+            print("Для обработки выбран CSV-файл")
             break
         elif user_choice == "3":
-            print("Для обработки выбран XLSX-файл")
             data = read_excel(path_file=DATA_PATH_XLSX)
+            print("Для обработки выбран XLSX-файл")
             break
         else:
             print("Необходимо ввести '1', '2' или '3'")
@@ -41,8 +43,9 @@ def main_choice_file():
 def main_choose_status(data: list[dict]) -> list[dict]:
     """Пользователь выбирает статус интересующих его операций"""
     print("Введите статус, по которому необходимо выполнить фильтрацию.")
-    state = None
+    state_filt = []
     while True:
+        state = None
         print("Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING")
 
         user_choice = input("что Вы выбрали? ").upper().strip()
@@ -53,7 +56,9 @@ def main_choose_status(data: list[dict]) -> list[dict]:
         else:
             print(f"Статус операции '{user_choice}' недоступен")
 
-    state_filt = process_bank_search(data, search=state)
+    for el in data:
+        if state == el["state"]:
+            state_filt.append(el)
 
     return state_filt
 

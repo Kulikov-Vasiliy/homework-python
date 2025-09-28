@@ -1,5 +1,3 @@
-import numpy as np
-
 from src import masks, processing, widget
 from src.decorators import my_function
 from src.external_api import currency_to_rubs
@@ -151,7 +149,7 @@ if __name__ == "__main__":
         print(next(descriptions))
     for card_number in card_number_generator(1, 3):  # type: ignore[attr-defined]
         print(card_number)
-    # my_function(1.1, 2.1)
+    my_function(1.1, 2.1)
     for operation in json_to_list(path_file=DATA_PATH):
         print(currency_to_rubs(operation))
     for row in read_csv(path_file=DATA_PATH_CSV):
