@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 
 from src import processing, widget
@@ -91,7 +93,6 @@ def main_extra_choices(state_filt: list[dict]) -> list[dict]:
         choice_ru = filter_by_currency(transactions=state_filt)
 
     print("Отфильтровать список транзакций по определенному слову в описании?")
-    categories = []
     user_choice_4 = input("Да/Нет ").title()
     if (
         user_choice_4 == "Да"
@@ -105,8 +106,11 @@ def main_extra_choices(state_filt: list[dict]) -> list[dict]:
             word.strip() for word in user_words.split(",")
         ]  # Убираем лишние пробелы
         if keywords:
-            categories.extend(keywords)
-            result = [process_bank_operations(choice_ruas, categories)]
+            result = [
+                el
+                for el in choice_ruas
+                if any(word in el["description"] for word in keywords)
+            ]
         elif not keywords:
             result = process_bank_search(choice_ruas, search=user_words)
 
@@ -122,8 +126,11 @@ def main_extra_choices(state_filt: list[dict]) -> list[dict]:
             word.strip() for word in user_words.split(",")
         ]  # Убираем лишние пробелы
         if keywords:
-            categories.extend(keywords)
-            result = [process_bank_operations(choice_rudes, categories)]
+            result = [
+                el
+                for el in choice_rudes
+                if any(word in el["description"] for word in keywords)
+            ]
         elif not keywords:
             result = process_bank_search(choice_rudes, search=user_words)
 
@@ -134,8 +141,11 @@ def main_extra_choices(state_filt: list[dict]) -> list[dict]:
             word.strip() for word in user_words.split(",")
         ]  # Убираем лишние пробелы
         if keywords:
-            categories.extend(user_words)
-            result = [process_bank_operations(choice_ru, categories)]
+            result = [
+                el
+                for el in choice_ru
+                if any(word in el["description"] for word in keywords)
+            ]
         elif not keywords:
             result = process_bank_search(choice_ru, search=user_words)
 
@@ -146,17 +156,13 @@ def main_extra_choices(state_filt: list[dict]) -> list[dict]:
             word.strip() for word in user_words.split(",")
         ]  # Убираем лишние пробелы
         if keywords:
-            # for el in keywords:
-            #     result.append(process_bank_search(state_filt, search=el))
-            categories.extend(user_words)
-            result = [process_bank_operations(state_filt, categories)]
+            result = [
+                el
+                for el in state_filt
+                if any(word in el["description"] for word in keywords)
+            ]
         elif not keywords:
             result = process_bank_search(state_filt, search=user_words)
-
-    elif user_choice_1 != "Да" and user_choice_3 != "Да" and user_choice_4 != "Да":
-        result = state_filt
-
-    print(result)
 
     return result
 
@@ -169,41 +175,51 @@ def main(result: list[dict]):  # type: ignore[return]
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
 
     else:
-        info_from = np.nan
-        info_to = np.nan
-        info_date = np.nan
-        info_desc = np.nan
-        info_am = np.nan
-        info_name = np.nan
+        to_return = []
+        info_from = ""
+        info_to = ""
+        info_date = ""
+        info_desc = ""
+        info_am = ""
+        info_name = ""
         total_operations = len(result)
 
+        print(f"Всего банковских операций в выборке: {total_operations}")
+
         for info in result:
-            if "from" in info:
+            if "from" in info and isinstance(info["from"], str):
                 info_from = widget.mask_account_card(info["from"])
-                print(type(info_from))
-                print(info_from)
-            if "to" in info:
+            if "to" in info and isinstance(info["to"], str):
                 info_to = widget.mask_account_card(info["to"])
-            if "date" in info:
+            if "date" in info and isinstance(info["date"], str):
                 info_date = widget.get_date(info["date"])
             if "description" in info:
                 info_desc = info["description"]
-            if "amount" in info:
-                info_am = info["operationAmount"]["amount"]
+            if isinstance(info_am, float) and math.isnan(info_am):
+                info_am = str(info["operationAmount"].get("amount"))
             if "name" in info:
-                info_name = info["operationAmount"]["currency"]["name"]
+                info_name = (
+                    info["operationAmount"]
+                    .get("currency", {})
+                    .get("name", "Неизвестно")
+                )
 
-        if info_from is not None:
-            print(f"""Всего банковских операций в выборке: {total_operations}
-{info_date} {info_desc}
+            if info_from is not None:
+                to_return.append(
+                    f"""{info_date} {info_desc}
 {info_from} -> {info_to}
-Сумма: {str(info_am)} {info_name}""")
+Сумма: {info_am} {info_name}"""
+                )
 
-        elif info_from is None:
-            print(f"""Всего банковских операций в выборке: {total_operations}
-{info_date} {info_desc}
+            elif info_from is None or info_from is np.nan:
+                to_return.append(
+                    f"""{info_date} {info_desc}
 {info_to}
-Сумма: {str(info_am)} {info_name}""")
+Сумма: {info_am} {info_name}"""
+                )
+
+        for el in to_return:
+            print(el)
 
 
 data = main_choice_file()
