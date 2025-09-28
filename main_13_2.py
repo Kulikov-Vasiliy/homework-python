@@ -1,9 +1,7 @@
-from pprint import pprint
-
 import numpy as np
 
 from src import processing, widget
-from src.filtration_of_operations import process_bank_search, process_bank_operations, DATA_PATH_JSON
+from src.filtration_of_operations import process_bank_search, process_bank_operations
 from src.generators import filter_by_currency
 from src.tables_reader import DATA_PATH_CSV, read_csv, read_excel, DATA_PATH_XLSX
 from src.utils import json_to_list, DATA_PATH
@@ -66,10 +64,11 @@ def main_choose_status(data: list[dict]) -> list[dict]:
 def main_extra_choices(state_filt: list[dict]) -> list[dict]:
     """После фильтрации программа уточняет выборку операций, необходимых пользователю,
     и выводит в консоль операции, соответствующие выборке пользователя"""
-    choice_asc = None
-    choice_des = None
-    choice_ruas = None
-    choice_rudes = None
+    choice_ruas: list[dict] = []
+    choice_rudes: list[dict] = []
+    choice_ru: list[dict] = []
+    choice_asc: list[dict] = []
+    choice_des: list[dict] = []
     result = state_filt
 
     print("Отсортировать операции по дате?")
@@ -107,7 +106,7 @@ def main_extra_choices(state_filt: list[dict]) -> list[dict]:
         ]  # Убираем лишние пробелы
         if keywords:
             categories.extend(keywords)
-            result = process_bank_operations(choice_ruas, categories)
+            result = [process_bank_operations(choice_ruas, categories)]
         elif not keywords:
             result = process_bank_search(choice_ruas, search=user_words)
 
@@ -124,7 +123,7 @@ def main_extra_choices(state_filt: list[dict]) -> list[dict]:
         ]  # Убираем лишние пробелы
         if keywords:
             categories.extend(keywords)
-            result = process_bank_operations(choice_rudes, categories)
+            result = [process_bank_operations(choice_rudes, categories)]
         elif not keywords:
             result = process_bank_search(choice_rudes, search=user_words)
 
@@ -136,7 +135,7 @@ def main_extra_choices(state_filt: list[dict]) -> list[dict]:
         ]  # Убираем лишние пробелы
         if keywords:
             categories.extend(user_words)
-            result = process_bank_operations(choice_ru, categories)
+            result = [process_bank_operations(choice_ru, categories)]
         elif not keywords:
             result = process_bank_search(choice_ru, search=user_words)
 
@@ -147,29 +146,42 @@ def main_extra_choices(state_filt: list[dict]) -> list[dict]:
             word.strip() for word in user_words.split(",")
         ]  # Убираем лишние пробелы
         if keywords:
+            # for el in keywords:
+            #     result.append(process_bank_search(state_filt, search=el))
             categories.extend(user_words)
-            result = process_bank_operations(state_filt, categories)
+            result = [process_bank_operations(state_filt, categories)]
         elif not keywords:
             result = process_bank_search(state_filt, search=user_words)
+
+    elif user_choice_1 != "Да" and user_choice_3 != "Да" and user_choice_4 != "Да":
+        result = state_filt
+
+    print(result)
 
     return result
 
 
-def main(result: list[dict]):
+def main(result: list[dict]):  # type: ignore[return]
     """Функция отвечает за основную логику проекта и связывает функциональности между собой."""
     print("Распечатываю итоговый список транзакций...")
-    info_from = np.nan
-    info_to = np.nan
-    info_date = np.nan
-    info_desc = np.nan
-    info_am = np.nan
-    info_name = np.nan
 
-    if result is not None:
+    if result == [{}] or result == []:
+        print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
+
+    else:
+        info_from = np.nan
+        info_to = np.nan
+        info_date = np.nan
+        info_desc = np.nan
+        info_am = np.nan
+        info_name = np.nan
         total_operations = len(result)
+
         for info in result:
             if "from" in info:
                 info_from = widget.mask_account_card(info["from"])
+                print(type(info_from))
+                print(info_from)
             if "to" in info:
                 info_to = widget.mask_account_card(info["to"])
             if "date" in info:
@@ -182,28 +194,19 @@ def main(result: list[dict]):
                 info_name = info["operationAmount"]["currency"]["name"]
 
         if info_from is not None:
-            print(
-                f"""Всего банковских операций в выборке: {total_operations}
+            print(f"""Всего банковских операций в выборке: {total_operations}
 {info_date} {info_desc}
 {info_from} -> {info_to}
-Сумма: {info_am} {info_name}"""
-            )
+Сумма: {str(info_am)} {info_name}""")
 
         elif info_from is None:
-            print(
-                f"""Всего банковских операций в выборке: {total_operations}
+            print(f"""Всего банковских операций в выборке: {total_operations}
 {info_date} {info_desc}
 {info_to}
-Сумма: {info_am} {info_name}"""
-            )
-
-        else:
-            print(
-                "Не найдено ни одной транзакции, подходящей под ваши условия фильтрации"
-            )
+Сумма: {str(info_am)} {info_name}""")
 
 
 data = main_choice_file()
 state_filt = main_choose_status(data)
-end = main_extra_choices(state_filt)
-main(end)
+result = main_extra_choices(state_filt)
+main(result)

@@ -17,7 +17,7 @@ def process_bank_search(data: list[dict], search: str) -> list[dict]:  # type: i
         result = []
 
         for operation in data:
-            desc = operation.get("description").lower()
+            desc = operation["description"].lower()
             finding = re.findall(sample, string=desc)
             if finding:  # Проверяем, не пустой ли список
                 result.append(operation)
