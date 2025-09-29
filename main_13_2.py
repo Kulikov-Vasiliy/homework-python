@@ -1,12 +1,11 @@
-import math
-
 import numpy as np
+import pandas as pd
 
 from src import processing, widget
-from src.filtration_of_operations import process_bank_search, process_bank_operations
+from src.filtration_of_operations import process_bank_search
 from src.generators import filter_by_currency
-from src.tables_reader import DATA_PATH_CSV, read_csv, read_excel, DATA_PATH_XLSX
-from src.utils import json_to_list, DATA_PATH
+from src.tables_reader import DATA_PATH_CSV, DATA_PATH_XLSX, read_csv, read_excel
+from src.utils import DATA_PATH, json_to_list
 
 
 def main_choice_file():
@@ -176,33 +175,39 @@ def main(result: list[dict]):  # type: ignore[return]
 
     else:
         to_return = []
-        info_from = ""
-        info_to = ""
-        info_date = ""
-        info_desc = ""
-        info_am = ""
-        info_name = ""
+        info_from = "" or np.nan
+        info_to = "" or np.nan
+        info_date = "" or np.nan
+        info_desc = "" or np.nan
+        info_am = "" or np.nan
+        info_name = "" or np.nan
         total_operations = len(result)
 
         print(f"Всего банковских операций в выборке: {total_operations}")
 
         for info in result:
-            if "from" in info and isinstance(info["from"], str):
+            if (
+                "from" in info
+                and isinstance(info["from"], str)
+                and not pd.isna(info["from"])
+            ):
                 info_from = widget.mask_account_card(info["from"])
-            if "to" in info and isinstance(info["to"], str):
+            else:
+                info_from = None  # type: ignore[assignment]
+            if "to" in info and isinstance(info["to"], str) and not pd.isna(info["to"]):
                 info_to = widget.mask_account_card(info["to"])
+            else:
+                info_to = None  # type: ignore[assignment]
             if "date" in info and isinstance(info["date"], str):
                 info_date = widget.get_date(info["date"])
             if "description" in info:
                 info_desc = info["description"]
-            if isinstance(info_am, float) and math.isnan(info_am):
-                info_am = str(info["operationAmount"].get("amount"))
-            if "name" in info:
-                info_name = (
-                    info["operationAmount"]
-                    .get("currency", {})
-                    .get("name", "Неизвестно")
-                )
+            if "operationAmount" not in info:
+                info_am = info["amount"]
+                info_name = info["currency_name"]
+            elif "operationAmount" in info:
+                info_am = info["operationAmount"]["amount"]
+                info_name = info["operationAmount"]["currency"]["name"]
 
             if info_from is not None:
                 to_return.append(
@@ -211,7 +216,7 @@ def main(result: list[dict]):  # type: ignore[return]
 Сумма: {info_am} {info_name}"""
                 )
 
-            elif info_from is None or info_from is np.nan:
+            elif info_from is None:
                 to_return.append(
                     f"""{info_date} {info_desc}
 {info_to}
