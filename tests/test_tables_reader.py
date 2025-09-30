@@ -5,9 +5,9 @@ from unittest.mock import mock_open, patch
 import numpy as np
 import pandas as pd
 import pytest
-from pandas import read_excel
 
-from src.tables_reader import read_csv
+
+from src.tables_reader import read_csv, read_excel
 
 BASE_DIR = os.path.dirname(__file__)
 DATA_PATH_CSV = os.path.join(BASE_DIR, "..", "data", "transactions.csv")
@@ -178,6 +178,6 @@ def test_read_excel_if_none(mock_read_excel, path_file=DATA_PATH_XLSX):  # noqa:
         ]
     ),
 )
-def test_read_excel_success(mock_read_excel, expected_reader_xl): # noqa: F841
+def test_read_excel_success(mock_read_excel, expected_reader_xl):  # noqa: F841
     result = read_excel("mocked_file.xlsx")
     assert result == expected_reader_xl

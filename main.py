@@ -1,13 +1,17 @@
 from src import masks, processing, widget
 from src.decorators import my_function
 from src.external_api import currency_to_rubs
+from src.filtration_of_operations import (
+    process_bank_operations,
+    process_bank_search,
+)
 from src.generators import (
     card_number_generator,
     filter_by_currency,
     transaction_descriptions,
 )
 from src.tables_reader import DATA_PATH_CSV, DATA_PATH_XLSX, read_csv, read_excel
-from src.utils import DATA_PATH, json_to_list
+from src.utils import DATA_PATH, json_to_list, operations_filled
 
 if __name__ == "__main__":
     print(masks.get_mask_card_number("7000792289606361"))
@@ -151,3 +155,27 @@ if __name__ == "__main__":
     for row in read_csv(path_file=DATA_PATH_CSV):
         print(row)
     print(read_excel(path_file=DATA_PATH_XLSX))
+    print(process_bank_search(data=operations_filled, search="вклад"))
+    print(process_bank_search(data=read_csv(path_file=DATA_PATH_CSV), search="вклад"))
+    print(
+        process_bank_search(data=read_excel(path_file=DATA_PATH_XLSX), search="вклад")
+    )
+    print(read_excel(path_file=DATA_PATH_XLSX))
+    print(
+        process_bank_operations(
+            data=operations_filled,
+            categories=["открытие вклада", "Перевод организации"],
+        )
+    )
+    print(
+        process_bank_operations(
+            data=read_csv(path_file=DATA_PATH_CSV),
+            categories=["открытие вклада", "Перевод организации"],
+        )
+    )
+    print(
+        process_bank_operations(
+            data=read_excel(path_file=DATA_PATH_XLSX),
+            categories=["открытие вклада", "Перевод организации"],
+        )
+    )
